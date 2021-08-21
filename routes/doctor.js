@@ -8,7 +8,7 @@ const doctorController = require('../controllers/doctorController');
 
 router.get('/add',ensureAuthenticated,doctorController.add);
 router.get('/getAll',doctorController.getAll);
-router.post('/getByTime/:startTime/:endTime',doctorController.getByTime);
+router.get('/getByTime/:startTime/:endTime',doctorController.getByTime);
 router.post('/bookAppointment',doctorController.bookAppointment);
 
 

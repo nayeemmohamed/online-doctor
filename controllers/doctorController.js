@@ -58,8 +58,8 @@ const getByTime = (req,res) => {
         }
     )
     .then((result)=>{
-        res.render('dashboard',{doctors: result})
-        //res.send(result);
+        //res.render('dashboard',{doctors: result})
+        res.send(result);
     })
     .catch((err) => {
       console.log(err);
