@@ -48,17 +48,18 @@ const getByTime = (req,res) => {
 // $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }]
     Doctor.find(
         //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
-        {
-            $or: [
+        {startTime: { $lt: time2 },endTime: { $gt: time1 }}
+        //{
+            //$or: [
                 //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
                 //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
-                {startTime: { $gte: time1 }, startTime: { $lt: time2 }},
-                {endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
-              ]
-        }
+                //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
+                //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
+              //]
+        //}
     )
     .then((result)=>{
-        //res.render('dashboard',{doctors: result})
+        // res.render('dashboard',{doctors: result})
         res.send(result);
     })
     .catch((err) => {

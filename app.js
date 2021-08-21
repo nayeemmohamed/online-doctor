@@ -153,6 +153,9 @@ var port = process.env.PORT || 8080;
 app.listen(port);
 console.log("Server started on port: "+port);
 
+
+module.exports = app
+
 //const MongoClient = require('mongodb').MongoClient;
 //const uri = "mongodb+srv://dbuser1:dbuser1@cluster0.9lzkt.mongodb.net/lifesaver?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
