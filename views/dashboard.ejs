@@ -62,8 +62,8 @@ var row;var column1;var column2;
 
         console.log(valueFrom+"   ::::   "+valueTo);
         
-        fetch("http://localhost:3000/doctor/getByTime/"+valueFrom+"/"+valueTo+"").then(res=>res.json()).then((out)=>{
-
+        fetch("/doctor/getByTime/"+valueFrom+"/"+valueTo+"").then(res=>res.json()).then((out)=>{
+          //http://host.docker.internal:3000     
         
 
 
