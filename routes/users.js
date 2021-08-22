@@ -101,4 +101,29 @@ router.post('/login',(req,res,next) =>{
 });
 
 
+
+//testing api's
+router.get('/getAllusers',(req,res)=>{
+    User.find()
+      .then((result)=>{
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  
+  
+router.get('/single-userid/:id',(req,res)=>{
+    //'611d24211afcd32220d05087'
+    User.findById(req.params.id)
+      .then((result)=>{
+        res.send(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+});
+
+
 module.exports = router;

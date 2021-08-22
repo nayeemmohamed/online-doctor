@@ -12,25 +12,74 @@ chai.use(chaiHttp);
 
 describe("Test Doctor API", () =>{
 
-    var url = "http://localhost:8080/single-user";
-    it("it should return list of all doctors",function(done){
-        //request(url, function(error,response,body){
-         //   expect(response.statusCode).to.equal(200);
-         //   done();
-        
+    //var url = "http://localhost:8080/single-user";
 
+    it("returns status 200 to check if api works",function(done){
+        chai.request(server)
+           .get("/doctor/getAll")
+           .end((err,response) =>{
+               response.should.have.status(200);
+               done();
+           });
+   });
+
+    it("it should return list of all doctors",function(done){
          chai.request(server)
-            .get("/getAllusers")
+            .get("/doctor/getAll")
             .end((err,response) =>{
-                response.should.have.status(200);
                 response.body.should.be.a('array');
                 done();
-            });
-
-        
+            }); 
     });
 
 
+    it("returns status 200 to check if api works",function(done){
+        chai.request(server)
+           .get("/doctor/getByTime/09:30/11:40")
+           .end((err,response) =>{
+               response.should.have.status(200);
+               done();
+           });
+   });
 
+    it("it should return array of available doctors",function(done){
+         chai.request(server)
+            .get("/doctor/getByTime/09:30-AM/11:40-AM")
+            .end((err,response) =>{
+                response.body.should.be.a('array');
+                done();
+            }); 
+    });
+
+
+    it("returns status 200 to check if api works",function(done){
+        const testPost = {
+            doctorName: "Abc",
+            doctorEmail: "abc@gmail.com",
+            appointmentTime: "11:30-13:30"
+        }
+        chai.request(server)
+           .post("/doctor/bookAppointment")
+           .send(testPost)
+           .end((err,response) =>{
+                response.should.have.status(200);
+                done();
+           });
+   });
+
+    it("it should return string object",function(done){
+        const testPost = {
+            doctorName: "Abc",
+            doctorEmail: "abc@gmail.com",
+            appointmentTime: "11:30-13:30"
+        }
+        chai.request(server)
+           .post("/doctor/bookAppointment")
+           .send(testPost)
+           .end((err,response) =>{
+            response.body.should.be.a('object');
+               done();
+           });
+        });
 
 });

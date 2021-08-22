@@ -65,16 +65,6 @@ const getByTime = (req,res) => {
     .catch((err) => {
       console.log(err);
     });
-
- //   const results = await Mechanics.find({
- //       startTime: { $lte: user_date },
-//        endTime: { $gte: user_date }
-//    });
-
-//    if (results.length > 0) {
-//        return results;
-//    }
-//    return false;
 }
 
 
