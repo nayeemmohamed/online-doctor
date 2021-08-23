@@ -9,11 +9,11 @@ const add = (req,res) => {
     var date2 = new Date('2021-08-15T21:00:00.000Z');
 
     const newDoctor = new Doctor({
-        name: 'Zac Coughlan',
-        speciality: 'Psychiatrists',
-        description: 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
+        name: 'Henry Bass',
+        speciality: 'GP',
+        description: 'GP at Eastwood clinic',
         phone:"+61(08) 8328 2050",
-        email: 'zac@gmail.com',
+        email: 'henry@gmail.com',
         password: '123456789',
         startTime: date1,
         endTime: date2
