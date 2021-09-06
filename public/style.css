@@ -1,0 +1,51 @@
+#doctorPara{
+    color: rgb(4, 131, 181);
+    font-size: larger;
+    font-weight: bold;
+}
+b{
+    color: black;
+}
+#timePara{
+    color: rgb(4, 167, 4);
+    font-size: larger;
+}
+#specPara{
+    color: rgb(37, 124, 255);
+    font-size: larger;
+}
+#descrip{
+    font-size: larger;
+}
+#btnContact{
+    background-color: rgb(88, 233, 39);
+    border: none;
+    outline: none;
+}
+.display-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashboard-user{
+    color: white;
+}
+.primary-color-background{
+ background-color: rgb(54, 168, 255);
+}
+.avar-name{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+.avar-img{
+    display:flex;
+    align-items: center;
+    padding: 10px;
+    border-radius:100%;
+    border: 1px solid white;
+}
+.avar-name .username{
+    color: white;
+    margin-left: 10px;
+}

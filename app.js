@@ -26,7 +26,8 @@ mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('DB Connected...'))
   .catch(err => console.log(err));
 
-
+// set static files
+app.use(express.static(__dirname + '/public'));
 
 // register view engine
 app.use(expressLayouts);
