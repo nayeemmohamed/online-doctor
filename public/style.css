@@ -27,6 +27,11 @@ b{
     justify-content: space-between;
     align-items: center;
 }
+.display-flex-start{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
 .dashboard-user{
     color: white;
 }
@@ -48,4 +53,13 @@ b{
 .avar-name .username{
     color: white;
     margin-left: 10px;
+}
+.fs-14{
+    font-size: 14px!important
+}
+.mr-10{
+    margin-right: 10px;
+}
+.mr-5{
+    margin-right: 5px;
 }
