@@ -1,3 +1,7 @@
+/**
+ * author qiaoli wang
+ * wangqiao@deakin.edu.au
+ */
 const mongoose = require('mongoose');
 
 const AppointmentSchema = new mongoose.Schema({

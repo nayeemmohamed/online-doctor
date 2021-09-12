@@ -1,3 +1,6 @@
+/**
+ *  modify by qiaoli wang
+ */
 function searchDoctors() {
     var selectFrom = document.getElementById('appointFrom');
     var selectTo = document.getElementById('appointTo');
@@ -30,7 +33,7 @@ function searchDoctors() {
             <h5 class="card-title">Dr.
             </span><u>${doctors[i].name}</u></h5>
             <div id="timePara">
-              <div class="fs-14"><b>Available </b>:${startTime}- ${endTime}</div>
+              <div class="fs-14">${doctors[i].available == false ? '<b style="color:red">Not Available</b>' : '<b style="color:green">Available</b>'} :${startTime}- ${endTime}</div>
             </div>
             <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
             <p id="specPara">
@@ -39,7 +42,7 @@ function searchDoctors() {
               <button class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
               value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
               id="btnContact">Contact</button>
-              <button id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
+              <button   ${doctors[i].available == false ? 'disabled' : ''} id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
               onclick="makeApointment(this)">Book Now</button>
           </div>
         </div> </div>`

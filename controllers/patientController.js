@@ -1,3 +1,8 @@
+/**
+ *  author qiaoli wang
+ *  wangqiao@deakin.edu.au
+ */
+
 const User = require('../models/User');
 const Doctor = require('../models/Doctor');
 const Appointment = require('../models/Appointment');
