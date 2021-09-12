@@ -1,92 +1,120 @@
-<div class="dashboard-user row primary-color-background">
-  <h2 class="mt-2">Dashboard</h2>
-  <div class="display-flex mt-2">
-    <p class="avar-name">
-      <span class="avar-img"><i class="fas fa-user-alt"></i></span>
-      <span class="username">
-        <%= user.name %>
-      </span>
-    </p>
-    <a href="/users/logout" class="btn btn-primary">Logout</a>
+<div class="dashboard-user row">
+  <div class="display-flex-baseline mt-4 mb-4">
+    <div class="avar-name">
+      <span class="avar-img mr-10"><img src="https://cdn1.iconfinder.com/data/icons/web-55/32/web_3-1024.png" width="65"/></span>
+      <div class="">
+        <div class="username">
+          <%= user.name %>
+        </div>
+        <div><%= user.email %></div>
+      </div>
+    </div>
+    <a href="/users/logout" class="btn btn-light">Logout</a>
   </div>
 </div>
-<br>
-<div class="form-inline" action="#">
-  <label class="col-sm-4">
-    Appointment From
-    <select class="form-control" id="appointFrom">
-      <option value="09:00-AM">09:00-AM</option>
-      <option value="09:30-AM">09:30-AM</option>
-      <option value="10:00-AM">10:00-AM</option>
-      <option value="10:30-AM">10:30-AM</option>
-      <option value="11:00-AM">11:00-AM</option>
-      <option value="11:30-AM">11:30-AM</option>
-      <option value="12:00-PM">12:00-PM</option>
-      <option value="12:30-PM">12:30-PM</option>
-      <option value="01:00-PM">01:00-PM</option>
-      <option value="01:30-PM">01:30-PM</option>
-      <option value="02:00-PM">02:00-PM</option>
-      <option value="02:30-PM">02:30-PM</option>
-      <option value="03:00-PM">03:00-PM</option>
-      <option value="03:30-PM">03:30-PM</option>
 
-      <option value="04:00-PM">04:00-PM</option>
-      <option value="04:30-PM">04:30-PM</option>
-      <option value="05:00-PM">05:00-PM</option>
-      <option value="05:30-PM">05:30-PM</option>
-      <option value="06:00-PM">06:00-PM</option>
-      <option value="06:30-PM">06:30-PM</option>
-      <option value="07:00-PM">07:00-PM</option>
-      <option value="07:30-PM">07:30-PM</option>
-      <option value="08:00-PM">08:00-PM</option>
-      <option value="08:30-PM">08:30-PM</option>
-
-    </select>
-  </label>
-  <label class="col-sm-4">
-    Appointment To
-    <select class="form-control" id="appointTo">
-      <option value="09:30-AM">09:30-AM</option>
-      <option value="10:00-AM">10:00-AM</option>
-      <option value="10:30-AM">10:30-AM</option>
-      <option value="11:00-AM">11:00-AM</option>
-      <option value="11:30-AM">11:30-AM</option>
-      <option value="12:00-PM">12:00-PM</option>
-      <option value="12:30-PM">12:30-PM</option>
-      <option value="01:00-PM">01:00-PM</option>
-      <option value="01:30-PM">01:30-PM</option>
-      <option value="02:00-PM">02:00-PM</option>
-      <option value="02:30-PM">02:30-PM</option>
-      <option value="03:00-PM">03:00-PM</option>
-      <option value="03:30-PM">03:30-PM</option>
-      <option value="04:00-PM">04:00-PM</option>
-
-      <option value="04:30-PM">04:30-PM</option>
-      <option value="05:00-PM">05:00-PM</option>
-      <option value="05:30-PM">05:30-PM</option>
-      <option value="06:00-PM">06:00-PM</option>
-      <option value="06:30-PM">06:30-PM</option>
-      <option value="07:00-PM">07:00-PM</option>
-      <option value="07:30-PM">07:30-PM</option>
-      <option value="08:00-PM">08:00-PM</option>
-      <option value="08:30-PM">08:30-PM</option>
-      <option value="09:00-PM">09:00-PM</option>
-
-    </select>
-  </label>
-  <!-- <br> -->
-  <button class="btn btn-danger" onclick="searchDoctors()"
-    style="background-color: rgb(0, 123, 255);outline: none;border: none;">SEARCH</button>
-</div>
-<br>
 <div class="container">
-  <div class="row" id="doctorList">
-    <!-- <p style="font-size: 40px;">Doctor</p> -->
-    <p>Detail</p>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Appointments</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+       <div class="row mt-4 mb-4">
+          <div class="card profile text-center col-md-2 border-0 shadow mr-10">
+            <div class="profile-list card-body">
+              <p class="profile-item set-profile"><i class="fas fa-address-card"></i></p>
+              <button type="button" class="btn btn-light">Set up profile</button>
+            </div>
+          </div>
+          <div class="card profile text-center col-md-2 border-0 shadow">
+            <div class="profile-list card-body">
+              <p  class="profile-item appointment"><i class="fas fa-calendar-check"></i></p>
+              <button type="button" class="btn btn-light">Make a Appointment</button>
+            </div>
+          </div>
+       </div>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">profile</div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      <div class="form-inline" action="#">
+        <label class="col-sm-4">
+          Appointment From
+          <select class="form-control" id="appointFrom">
+            <option value="09:00-AM">09:00-AM</option>
+            <option value="09:30-AM">09:30-AM</option>
+            <option value="10:00-AM">10:00-AM</option>
+            <option value="10:30-AM">10:30-AM</option>
+            <option value="11:00-AM">11:00-AM</option>
+            <option value="11:30-AM">11:30-AM</option>
+            <option value="12:00-PM">12:00-PM</option>
+            <option value="12:30-PM">12:30-PM</option>
+            <option value="01:00-PM">01:00-PM</option>
+            <option value="01:30-PM">01:30-PM</option>
+            <option value="02:00-PM">02:00-PM</option>
+            <option value="02:30-PM">02:30-PM</option>
+            <option value="03:00-PM">03:00-PM</option>
+            <option value="03:30-PM">03:30-PM</option>
+      
+            <option value="04:00-PM">04:00-PM</option>
+            <option value="04:30-PM">04:30-PM</option>
+            <option value="05:00-PM">05:00-PM</option>
+            <option value="05:30-PM">05:30-PM</option>
+            <option value="06:00-PM">06:00-PM</option>
+            <option value="06:30-PM">06:30-PM</option>
+            <option value="07:00-PM">07:00-PM</option>
+            <option value="07:30-PM">07:30-PM</option>
+            <option value="08:00-PM">08:00-PM</option>
+            <option value="08:30-PM">08:30-PM</option>
+      
+          </select>
+        </label>
+        <label class="col-sm-4">
+          Appointment To
+          <select class="form-control" id="appointTo">
+            <option value="09:30-AM">09:30-AM</option>
+            <option value="10:00-AM">10:00-AM</option>
+            <option value="10:30-AM">10:30-AM</option>
+            <option value="11:00-AM">11:00-AM</option>
+            <option value="11:30-AM">11:30-AM</option>
+            <option value="12:00-PM">12:00-PM</option>
+            <option value="12:30-PM">12:30-PM</option>
+            <option value="01:00-PM">01:00-PM</option>
+            <option value="01:30-PM">01:30-PM</option>
+            <option value="02:00-PM">02:00-PM</option>
+            <option value="02:30-PM">02:30-PM</option>
+            <option value="03:00-PM">03:00-PM</option>
+            <option value="03:30-PM">03:30-PM</option>
+            <option value="04:00-PM">04:00-PM</option>
+      
+            <option value="04:30-PM">04:30-PM</option>
+            <option value="05:00-PM">05:00-PM</option>
+            <option value="05:30-PM">05:30-PM</option>
+            <option value="06:00-PM">06:00-PM</option>
+            <option value="06:30-PM">06:30-PM</option>
+            <option value="07:00-PM">07:00-PM</option>
+            <option value="07:30-PM">07:30-PM</option>
+            <option value="08:00-PM">08:00-PM</option>
+            <option value="08:30-PM">08:30-PM</option>
+            <option value="09:00-PM">09:00-PM</option>
+          </select>
+        </label>
+        <!-- <br> -->
+        <button class="btn btn-primary" onclick="searchDoctors()"
+         >SEARCH</button>
+      </div>
+      <br>
+      <div class="container">
+        <div class="row" id="doctorList">
+          
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -106,10 +134,6 @@
     </div>
   </div>
 </div>
-
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,12 +157,8 @@
 
 
 <%- include ("./partials/messages"); %>
-
-  <script>
-
-
+<script>
     function searchDoctors() {
-
       var selectFrom = document.getElementById('appointFrom');
       var selectTo = document.getElementById('appointTo');
       var valueFrom = selectFrom.options[selectFrom.selectedIndex].value;
@@ -157,25 +177,21 @@
 
       fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {
         //http://host.docker.internal:3000     
-
         nameList = [];
         nameList.innerHTML = "";
         doctors = []; docList.innerHTML = "";
         console.log('OutPut: ', out);
         // alert(JSON.stringify(out));
         doctors = out;
-
         for (var i = 0; i < doctors.length; i++) {
-
           date1 = new Date(doctors[i].startTime);
           var startTime = new Date(date1).toLocaleTimeString('en',
             { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
-
           date2 = new Date(doctors[i].endTime);
           var endTime = new Date(date2).toLocaleTimeString('en',
             { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
 
-          let template = `<div class="card col-xs-12 col-md-3 mb-3">
+          let template = `<div class="card border-0 shadow col-xs-12 col-md-3 mb-3">
             <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="card-img-top" alt="${doctors[i].name}">
             <div class="card-body">
               <h5 class="card-title">Dr.
@@ -190,7 +206,7 @@
                 <button class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
                 value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
                 id="btnContact">Contact</button>
-                <button type="button" class="btn btn-primary"
+                <button type="button" class="btn btn-success"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button>
             </div>
           </div>`
@@ -199,16 +215,12 @@
       })
     }
 
-
     function onContact(ele) {
-
       emailPhone = document.createElement('p');
-
       emailPhone.innerHTML = ele.value;
       contactDetail = document.getElementById('emailNumber');
       contactDetail.innerHTML = '';
       contactDetail.appendChild(emailPhone);
-
     }
 
   </script>
