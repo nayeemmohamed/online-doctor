@@ -18,19 +18,19 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
       <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Appointments</a>
+      <a class="nav-item nav-link" id="nav-appointment-tab" data-toggle="tab" href="#nav-appointment" role="tab" aria-controls="nav-appointment" aria-selected="false">Appointments</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
        <div class="row mt-4 mb-4">
-          <div class="card profile text-center col-md-2 border-0 shadow mr-10">
+          <div class="card profile text-center col-md-2 border-0 shadow mr-10 mb-3">
             <div class="profile-list card-body">
               <p class="profile-item set-profile"><i class="fas fa-address-card"></i></p>
-              <button type="button" class="btn btn-light">Set up profile</button>
+              <button  type="button" class="btn btn-light" onclick="goToProfileForm()" >Set up profile</button>
             </div>
           </div>
-          <div class="card profile text-center col-md-2 border-0 shadow">
+          <div class="card profile text-center col-md-2 border-0 shadow mr-10 mb-3">
             <div class="profile-list card-body">
               <p  class="profile-item appointment"><i class="fas fa-calendar-check"></i></p>
               <button type="button" class="btn btn-light">Make a Appointment</button>
@@ -38,8 +38,40 @@
           </div>
        </div>
     </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">profile</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <div class="profile-form-container" data-uid="<%= user._id %>">
+        <div class="form-group row mb-3">
+          <label for="Birthday" class="col-sm-2 col-form-label">Birthday</label>
+          <div class="col-sm-3">
+            <input type="date" class="form-control" id="Birthday" placeholder="Birthday" value="<%= user.birthday %>">
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone number</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="PhoneNumber" placeholder="Phone number (eg. 410796077)" value="<%= user.phoneNumber %>">
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label for="Gender" class="col-sm-2 col-form-label">Gender</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="Gender">
+              <option>Please Select one</option>
+              <option <%= user.gender == 'Male' ? 'selected' :'' %> >Male</option>
+              <option <%= user.gender == 'Female' ? 'selected' :'' %>>Female</option>
+              <option <%= user.gender == 'Others' ? 'selected' :'' %> >Others</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12" style="text-align: right;">
+            <button type="submit" class="btn btn-secondary mr-10">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="profileUpdate">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-appointment" role="tabpanel" aria-labelledby="nav-appointment-tab">
       <div class="form-inline" action="#">
         <label class="col-sm-4">
           Appointment From
@@ -157,73 +189,8 @@
 
 
 <%- include ("./partials/messages"); %>
-<script>
-    function searchDoctors() {
-      var selectFrom = document.getElementById('appointFrom');
-      var selectTo = document.getElementById('appointTo');
-      var valueFrom = selectFrom.options[selectFrom.selectedIndex].value;
-      var valueTo = selectTo.options[selectTo.selectedIndex].value;
-
-      var docList = document.getElementById("doctorList");
-      var row; var column1; var column2;
-
-      var nameList = [];
-      var doctors = [];
-      var image, description, speciality, availableTime, endTime;
-      var contactBtn, bookNowBtn;
-      var contactDetail;
-
-      console.log(valueFrom + "   ::::   " + valueTo);
-
-      fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {
-        //http://host.docker.internal:3000     
-        nameList = [];
-        nameList.innerHTML = "";
-        doctors = []; docList.innerHTML = "";
-        console.log('OutPut: ', out);
-        // alert(JSON.stringify(out));
-        doctors = out;
-        for (var i = 0; i < doctors.length; i++) {
-          date1 = new Date(doctors[i].startTime);
-          var startTime = new Date(date1).toLocaleTimeString('en',
-            { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
-          date2 = new Date(doctors[i].endTime);
-          var endTime = new Date(date2).toLocaleTimeString('en',
-            { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
-
-          let template = `<div class="card border-0 shadow col-xs-12 col-md-3 mb-3">
-            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="card-img-top" alt="${doctors[i].name}">
-            <div class="card-body">
-              <h5 class="card-title">Dr.
-              </span><u>${doctors[i].name}</u></h5>
-              <div id="timePara">
-                <div class="fs-14"><b>Available </b>:${startTime}- ${endTime}</div>
-              </div>
-              <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
-              <p id="specPara">
-                <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
-                </p>
-                <button class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
-                value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
-                id="btnContact">Contact</button>
-                <button type="button" class="btn btn-success"
-                data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button>
-            </div>
-          </div>`
-          $('#doctorList').append(template);
-        }
-      })
-    }
-
-    function onContact(ele) {
-      emailPhone = document.createElement('p');
-      emailPhone.innerHTML = ele.value;
-      contactDetail = document.getElementById('emailNumber');
-      contactDetail.innerHTML = '';
-      contactDetail.appendChild(emailPhone);
-    }
-
-  </script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <link href="/style.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="/js/patientClient.js"></script>

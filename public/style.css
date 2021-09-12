@@ -9,6 +9,9 @@ button,h1,h2,h3,h4,h5,h6,a{
 body{
     background: cadetblue;
 }
+.dashboard-user .btn{
+    border-radius: 50px;
+}
 .display-flex{
     display: flex;
     justify-content: space-between;
@@ -70,7 +73,7 @@ body{
     align-items: center;
     justify-content: space-around;
 }
-.profile-list button{
+.profile-list button, .profile-form-container button{
     border-radius: 50px;
 }
 .profile-item{
@@ -102,5 +105,9 @@ body{
     color: black;
 }
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
+    background: white;
+}
+.profile-form-container{
+    padding: 24px;
     background: white;
 }
