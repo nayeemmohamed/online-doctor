@@ -39,10 +39,11 @@ function searchDoctors() {
               <button class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
               value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
               id="btnContact">Contact</button>
-              <button type="button" class="btn btn-success"
-              data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button>
+              <button id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
+              onclick="makeApointment(this)">Book Now</button>
           </div>
         </div> </div>`
+
         $('#doctorList').append(template);
       }
     })
@@ -98,3 +99,60 @@ function searchDoctors() {
     console.error('Error:', error);
     });
   }
+
+  /**
+   * make a appointment
+   * author qiaoli wang
+   */
+
+  let patient ={}, doctor ={};
+
+   makeApointment =(ele)=> {
+
+    $('#exampleModal').modal('show'); 
+
+       let doctorInfo = ele.value.toString().split(',');
+       $('#appointmentDoctor').text(doctorInfo[0]);
+       $('#appointmentTime').text(`${doctorInfo[1]}-${doctorInfo[2]}`);
+
+       doctor ={
+         id:doctorInfo[3],
+         startTime:doctorInfo[1],
+         endTime:doctorInfo[2]
+       }
+       
+   }
+
+   $('#confirmBooking').on('click',function(){
+    
+    patient ={
+      name:$('#patientName').val(),
+      email:$('#patientEmail').val(),
+      birthday:$('#patientBirthday').val(),
+      gender:$('#patientGender').val(),
+     }
+    
+    let dataToSend = {
+      patient:patient,
+      doctor:doctor
+    };
+
+    fetch(`/patient/bookAppointment`, {
+       method: 'POST', // or 'PUT'
+       headers: {
+           'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(dataToSend),
+       })
+       .then(response => response.json())
+       .then(data => {
+         if(data.success){
+           $('#exampleModal').modal('hide'); 
+           alert('Your appointment was successfully!!')
+         }
+       })
+       .catch((error) => {
+       console.error('Error:', error);
+       });
+   })
+   

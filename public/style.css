@@ -111,3 +111,6 @@ body{
     padding: 24px;
     background: white;
 }
+#appointmentDoctor,#appointmentTime{
+    font-weight: bold;
+}
