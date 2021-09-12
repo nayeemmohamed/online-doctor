@@ -73,7 +73,7 @@ body{
     align-items: center;
     justify-content: space-around;
 }
-.profile-list button, .profile-form-container button{
+.profile-list button, .profile-form-container button, .form-inline button ,.card button{
     border-radius: 50px;
 }
 .profile-item{

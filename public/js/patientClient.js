@@ -24,7 +24,7 @@ function searchDoctors() {
         var endTime = new Date(date2).toLocaleTimeString('en',
           { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
 
-        let template = `<div class="card border-0 shadow col-xs-12 col-md-3 mb-3">
+        let template = `<div class="col-sm-3 mb-3"><div class="card border-0 shadow">
           <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="card-img-top" alt="${doctors[i].name}">
           <div class="card-body">
             <h5 class="card-title">Dr.
@@ -42,7 +42,7 @@ function searchDoctors() {
               <button type="button" class="btn btn-success"
               data-bs-toggle="modal" data-bs-target="#exampleModal">Book Now</button>
           </div>
-        </div>`
+        </div> </div>`
         $('#doctorList').append(template);
       }
     })
@@ -65,9 +65,12 @@ function searchDoctors() {
 
   let uid = $('.profile-form-container').data('uid');
 
-
   goToProfileForm = ()=>{
     $('#nav-profile-tab').trigger('click');
+  }
+
+  goToAppointmentTab = ()=>{
+    $('#nav-appointment-tab').trigger('click');
   }
 
   $('#profileUpdate').on('click',function(){

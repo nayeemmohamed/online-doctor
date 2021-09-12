@@ -33,7 +33,7 @@
           <div class="card profile text-center col-md-2 border-0 shadow mr-10 mb-3">
             <div class="profile-list card-body">
               <p  class="profile-item appointment"><i class="fas fa-calendar-check"></i></p>
-              <button type="button" class="btn btn-light">Make a Appointment</button>
+              <button type="button" class="btn btn-light" onclick="goToAppointmentTab()">Make a Appointment</button>
             </div>
           </div>
        </div>
@@ -72,75 +72,82 @@
       </div>
     </div>
     <div class="tab-pane fade" id="nav-appointment" role="tabpanel" aria-labelledby="nav-appointment-tab">
-      <div class="form-inline" action="#">
-        <label class="col-sm-4">
-          Appointment From
-          <select class="form-control" id="appointFrom">
-            <option value="09:00-AM">09:00-AM</option>
-            <option value="09:30-AM">09:30-AM</option>
-            <option value="10:00-AM">10:00-AM</option>
-            <option value="10:30-AM">10:30-AM</option>
-            <option value="11:00-AM">11:00-AM</option>
-            <option value="11:30-AM">11:30-AM</option>
-            <option value="12:00-PM">12:00-PM</option>
-            <option value="12:30-PM">12:30-PM</option>
-            <option value="01:00-PM">01:00-PM</option>
-            <option value="01:30-PM">01:30-PM</option>
-            <option value="02:00-PM">02:00-PM</option>
-            <option value="02:30-PM">02:30-PM</option>
-            <option value="03:00-PM">03:00-PM</option>
-            <option value="03:30-PM">03:30-PM</option>
-      
-            <option value="04:00-PM">04:00-PM</option>
-            <option value="04:30-PM">04:30-PM</option>
-            <option value="05:00-PM">05:00-PM</option>
-            <option value="05:30-PM">05:30-PM</option>
-            <option value="06:00-PM">06:00-PM</option>
-            <option value="06:30-PM">06:30-PM</option>
-            <option value="07:00-PM">07:00-PM</option>
-            <option value="07:30-PM">07:30-PM</option>
-            <option value="08:00-PM">08:00-PM</option>
-            <option value="08:30-PM">08:30-PM</option>
-      
-          </select>
-        </label>
-        <label class="col-sm-4">
-          Appointment To
-          <select class="form-control" id="appointTo">
-            <option value="09:30-AM">09:30-AM</option>
-            <option value="10:00-AM">10:00-AM</option>
-            <option value="10:30-AM">10:30-AM</option>
-            <option value="11:00-AM">11:00-AM</option>
-            <option value="11:30-AM">11:30-AM</option>
-            <option value="12:00-PM">12:00-PM</option>
-            <option value="12:30-PM">12:30-PM</option>
-            <option value="01:00-PM">01:00-PM</option>
-            <option value="01:30-PM">01:30-PM</option>
-            <option value="02:00-PM">02:00-PM</option>
-            <option value="02:30-PM">02:30-PM</option>
-            <option value="03:00-PM">03:00-PM</option>
-            <option value="03:30-PM">03:30-PM</option>
-            <option value="04:00-PM">04:00-PM</option>
-      
-            <option value="04:30-PM">04:30-PM</option>
-            <option value="05:00-PM">05:00-PM</option>
-            <option value="05:30-PM">05:30-PM</option>
-            <option value="06:00-PM">06:00-PM</option>
-            <option value="06:30-PM">06:30-PM</option>
-            <option value="07:00-PM">07:00-PM</option>
-            <option value="07:30-PM">07:30-PM</option>
-            <option value="08:00-PM">08:00-PM</option>
-            <option value="08:30-PM">08:30-PM</option>
-            <option value="09:00-PM">09:00-PM</option>
-          </select>
-        </label>
-        <!-- <br> -->
-        <button class="btn btn-primary" onclick="searchDoctors()"
-         >SEARCH</button>
+      <div class="form-inline">
+      <div class="row mt-4">
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Appointment From</div>
+            </div>
+            <select class="form-control" id="appointFrom">
+              <option value="09:00-AM">09:00-AM</option>
+              <option value="09:30-AM">09:30-AM</option>
+              <option value="10:00-AM">10:00-AM</option>
+              <option value="10:30-AM">10:30-AM</option>
+              <option value="11:00-AM">11:00-AM</option>
+              <option value="11:30-AM">11:30-AM</option>
+              <option value="12:00-PM">12:00-PM</option>
+              <option value="12:30-PM">12:30-PM</option>
+              <option value="01:00-PM">01:00-PM</option>
+              <option value="01:30-PM">01:30-PM</option>
+              <option value="02:00-PM">02:00-PM</option>
+              <option value="02:30-PM">02:30-PM</option>
+              <option value="03:00-PM">03:00-PM</option>
+              <option value="03:30-PM">03:30-PM</option>
+              <option value="04:00-PM">04:00-PM</option>
+              <option value="04:30-PM">04:30-PM</option>
+              <option value="05:00-PM">05:00-PM</option>
+              <option value="05:30-PM">05:30-PM</option>
+              <option value="06:00-PM">06:00-PM</option>
+              <option value="06:30-PM">06:30-PM</option>
+              <option value="07:00-PM">07:00-PM</option>
+              <option value="07:30-PM">07:30-PM</option>
+              <option value="08:00-PM">08:00-PM</option>
+              <option value="08:30-PM">08:30-PM</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">To</div>
+            </div>
+            <select class="form-control" id="appointTo">
+              <option value="09:30-AM">09:30-AM</option>
+              <option value="10:00-AM">10:00-AM</option>
+              <option value="10:30-AM">10:30-AM</option>
+              <option value="11:00-AM">11:00-AM</option>
+              <option value="11:30-AM">11:30-AM</option>
+              <option value="12:00-PM">12:00-PM</option>
+              <option value="12:30-PM">12:30-PM</option>
+              <option value="01:00-PM">01:00-PM</option>
+              <option value="01:30-PM">01:30-PM</option>
+              <option value="02:00-PM">02:00-PM</option>
+              <option value="02:30-PM">02:30-PM</option>
+              <option value="03:00-PM">03:00-PM</option>
+              <option value="03:30-PM">03:30-PM</option>
+              <option value="04:00-PM">04:00-PM</option>
+        
+              <option value="04:30-PM">04:30-PM</option>
+              <option value="05:00-PM">05:00-PM</option>
+              <option value="05:30-PM">05:30-PM</option>
+              <option value="06:00-PM">06:00-PM</option>
+              <option value="06:30-PM">06:30-PM</option>
+              <option value="07:00-PM">07:00-PM</option>
+              <option value="07:30-PM">07:30-PM</option>
+              <option value="08:00-PM">08:00-PM</option>
+              <option value="08:30-PM">08:30-PM</option>
+              <option value="09:00-PM">09:00-PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-primary" onclick="searchDoctors()"
+          >Search</button>
+        </div>
       </div>
-      <br>
       <div class="container">
-        <div class="row" id="doctorList">
+        <div class="row mt-5" id="doctorList">
           
         </div>
       </div>
