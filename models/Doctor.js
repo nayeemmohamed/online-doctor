@@ -35,7 +35,8 @@ const DoctorSchema = new mongoose.Schema({
     },
     available:{
         type:Boolean,
-        default:true
+        default:true,
+        required: true
     }
 });
 

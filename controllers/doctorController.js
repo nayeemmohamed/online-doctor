@@ -1,5 +1,111 @@
+const bcrypt  = require('bcryptjs');
 //Doctor model
 const Doctor = require('../models/Doctor');
+
+//User model
+//const User =  require('../models/Doctor');
+//const Doctor =  require('../models/Doctor');
+
+//Handle Registration for Doctor
+const register = (req,res)=>{
+  const { 
+    name, 
+    email, 
+    password , 
+    password2 , 
+    speciality,
+    description,
+    phone,
+    starttime,
+    endtime
+    } = req.body;
+
+    let startTime  = convertTime12to24(starttime);
+    let endTime  = convertTime12to24(endtime);
+
+    let errors = [];
+  //Checkr required fields
+  if(!name || !email || !password || !password2 || !speciality || !description || !phone
+    || !startTime || !endTime){
+      errors.push({msg: 'Please fill in all fields'});
+  }
+
+  //Check password match
+  if(password != password2){
+      errors.push({msg: 'Password do not match'});
+  }
+
+  //Check pass length
+  if(password.length<6){
+      errors.push({msg: "Password should be at least 6 characters"});
+  }
+
+  if(errors.length>0){
+      res.render('doctor/register',{
+          errors,
+          name,
+          email,
+          password,
+          password2,
+          speciality,
+          description,
+          phone,
+          startTime,
+          endTime
+      });
+  }else{
+      //Validation Passed
+      Doctor.findOne({email: email})
+      .then(user => {
+          if(user){
+              //User Exist
+              errors.push({msg: 'Email already exist'});
+              res.render('doctor/register',{
+                  errors,
+                  name,
+                  email,
+                  password,
+                  password2,
+                  speciality,
+                  description,
+                  phone,
+                  startTime,
+                  endTime
+              });
+          }else {
+            startTime = new Date('2021-08-15T'+startTime+':00.000Z');
+            endTime = new Date('2021-08-15T'+endTime+':00.000Z');
+              const newUser = new Doctor({
+                  name,
+                  email,
+                  password,
+                  speciality,
+                  description,
+                  phone,
+                  startTime,
+                  endTime
+              });
+
+              //Password enryption using bcrypt
+              bcrypt.genSalt(10, (err , salt) => bcrypt.hash(newUser.password, salt, (err,hash) => {
+                  if(err) throw err;
+                  // update password
+                  newUser.password = hash;
+                  //Save user to mondo db using mongoose
+                  newUser.save()
+                      .then(user => {
+                          req.flash('success_msg','Registered Successfully!');
+                          res.redirect('/doctor/login');
+                      })
+                      .catch(err => console.log(err));
+              }));
+          }
+      });
+  }
+
+}
+
+
 
 const add = (req,res) => {
     //var date1 = new Date('August 15, 2021 09:30:00');
@@ -92,6 +198,7 @@ const bookAppointment = (req,res) => {
 
 
 module.exports = {
+    register,
     add,
     getAll,
     getByTime,

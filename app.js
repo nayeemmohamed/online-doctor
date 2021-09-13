@@ -15,7 +15,7 @@ var app = express();
 
 
 
-require('./config/passport')(passport);
+require('./config/passport').UserAuthentication(passport);
 
 //db config 
 const db = require('./config/keys').MongoURI;
