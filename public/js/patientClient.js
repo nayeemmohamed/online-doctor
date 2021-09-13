@@ -158,4 +158,74 @@ function searchDoctors() {
        console.error('Error:', error);
        });
    })
+
+   /**
+    *  get patient appointment history by patien _id
+    *  author qiaoli wang
+    *  wangqiao@deakin.edu.au
+    */
+  
+   getAppointments =()=>{
+    
+    fetch(`/patient/patientAppointments`, {
+      method: 'GET', // or 'PUT'
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      })
+      .then(response => response.json())
+      .then(data => {
+        let result = data;
+        let template;
+        console.log(result);
+        for (let index = 0; index < result.length; index++) {
+          const element = result[index];
+          template = `<tr>
+          <th scope="row">${index}</th>
+          <td>${index}</td>
+          <td>${element.doctor_id}</td>
+          <td>@mdo</td>
+          <td>${element.patient_id}</td>
+          <td><button value=${element._id}  onclick="cancelAppointmentById(this)">Cancle</button></td>
+        </tr>`;
+          $('#appointments').append(template);
+        }
+        
+        console.log(data);
+      })
+      .catch((error) => {
+      console.error('Error:', error);
+      });
+   }
+
+   getAppointments();
+
+   cancelAppointmentById=(e)=>{
+     //console.log(e.value);
+     if (confirm('Are you sure you want to cancel this appointment?')) {
+      let dataToSend = {
+        id:e.value
+      }
+      fetch(`/patient/cancelPatientAppointment`, {
+       method: 'POST', // or 'PUT'
+       headers: {
+           'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(dataToSend),
+       })
+       .then(response => response.json())
+       .then(data => {
+         console.log(data);
+         if(data.success){
+           alert('Your appointment was canceled!!')
+           location.reload();
+         }
+       })
+       .catch((error) => {
+       console.error('Error:', error);
+       });
+    } else {
+      alert('Your appointment was not cancel!!')
+    }
+   }
    

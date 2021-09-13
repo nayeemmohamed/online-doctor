@@ -11,6 +11,8 @@ const patientController = require('../controllers/patientController');
 
 router.post('/updateProfile',patientController.updateProfile);
 router.post('/bookAppointment',patientController.bookAppointment);
+router.get('/patientAppointments',patientController.getPatientAppointment);
+router.post('/cancelPatientAppointment',patientController.cancelPatientAppointment);
 
 
 module.exports = router;

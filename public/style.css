@@ -118,3 +118,6 @@ body{
 #appointmentDoctor,#appointmentTime{
     font-weight: bold;
 }
+.dashboard-common-title{
+    text-transform: uppercase;
+}

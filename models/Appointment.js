@@ -3,6 +3,7 @@
  * wangqiao@deakin.edu.au
  */
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema; 
 
 const AppointmentSchema = new mongoose.Schema({
     doctor_id:{
@@ -12,6 +13,9 @@ const AppointmentSchema = new mongoose.Schema({
     patient_id:{
         type: String,
     },
+    doctor: [{ type: Schema.Types.ObjectId, ref:'Doctor' }],
+    patient: [{ type: Schema.Types.ObjectId, ref:'Patient' }],
+
     startTime:{
         type: String,
         required: true 
