@@ -37,8 +37,9 @@ const bookAppointment = (req, res) => {
     newPatient.save()
         .then((result) => {
             const newAppointment = new Appointment({
-                doctor_id: doctor.id,
-                patient_id: result._id,
+                user_id:req.user._id,
+                doctor: doctor,
+                patient: result,
                 startTime: doctor.startTime,
                 endTime: doctor.endTime,
                 date: Date.now(),
@@ -46,9 +47,8 @@ const bookAppointment = (req, res) => {
 
             newAppointment.save()
                 .then((result) => {
-                    //console.log(result,'result');
-                    let startTime = timeCover(result.startTime), endTime = timeCover(result.endTime);
-                    const appointmentFilter = { _id: result.doctor_id, startTime: startTime, endTime: endTime };
+                    let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
+                    const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
                     const update = { available: false };
 
                     let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
@@ -56,7 +56,11 @@ const bookAppointment = (req, res) => {
                     doctor.then(() => {
                         res.send({ success: true, message: 'ok' });
                     })
-                        .catch(err => console.log(err));
+                    .catch(err => {
+                            console.log(err)
+                            res.send(err)
+                        }
+                    );
                 })
                 .catch(err => console.log(err));
         })
@@ -64,20 +68,22 @@ const bookAppointment = (req, res) => {
 }
 
 const getPatientAppointment = (req, res) => {
-    Appointment.find({}).populate('Doctor')
+    //console.log(req.user._id);
+    Appointment.find({'user_id': req.user._id})
         .then((result) => {
             res.send(result);
         })
         .catch((err) => {
             console.log(err);
+            res.send(err);
         });
 }
 const cancelPatientAppointment = (req, res) => {
     //console.log(req.body.id);
     Appointment.findByIdAndRemove(req.body.id)
         .then((result) => {
-            let startTime = timeCover(result.startTime), endTime = timeCover(result.endTime);
-            const appointmentFilter = { _id: result.doctor_id, startTime: startTime, endTime: endTime };
+            let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
+            const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
             const update = { available: true };
 
             let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);

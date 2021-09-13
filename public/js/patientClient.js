@@ -1,7 +1,15 @@
 /**
- *  modify by qiaoli wang
+ *  author qiaoli wang
+ *  wangqiao@deakin.edu.au
  */
-function searchDoctors() {
+$(document).ready(function(){
+  getAppointments();
+})
+/**
+ *  author Nayeem
+ *  modify by qiaoli
+ */
+searchDoctors =()=> {
     var selectFrom = document.getElementById('appointFrom');
     var selectTo = document.getElementById('appointTo');
     var valueFrom = selectFrom.options[selectFrom.selectedIndex].value;
@@ -11,13 +19,12 @@ function searchDoctors() {
 
     var nameList = [];
     var doctors = [];
-    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {
-      //http://host.docker.internal:3000     
+    $('#doctorList').empty();
+    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {   
       nameList = [];
       nameList.innerHTML = "";
       doctors = []; docList.innerHTML = "";
       console.log('OutPut: ', out);
-      // alert(JSON.stringify(out));
       doctors = out;
       for (var i = 0; i < doctors.length; i++) {
         date1 = new Date(doctors[i].startTime);
@@ -39,7 +46,7 @@ function searchDoctors() {
             <p id="specPara">
               <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
               </p>
-              <button class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+              <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
               value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
               id="btnContact">Contact</button>
               <button   ${doctors[i].available == false ? 'disabled' : ''} id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
@@ -51,15 +58,17 @@ function searchDoctors() {
       }
     })
   }
-
-  function onContact(ele) {
+/**
+ *  author Nayeem
+ *  modify by qiaoli
+ */
+ onContact =(ele) =>{
     emailPhone = document.createElement('p');
     emailPhone.innerHTML = ele.value;
     contactDetail = document.getElementById('emailNumber');
     contactDetail.innerHTML = '';
     contactDetail.appendChild(emailPhone);
   }
-
 
   /**
    *  patient profile
@@ -102,7 +111,6 @@ function searchDoctors() {
     console.error('Error:', error);
     });
   }
-
   /**
    * make a appointment
    * author qiaoli wang
@@ -113,33 +121,31 @@ function searchDoctors() {
    makeApointment =(ele)=> {
 
     $('#exampleModal').modal('show'); 
-
        let doctorInfo = ele.value.toString().split(',');
        $('#appointmentDoctor').text(doctorInfo[0]);
        $('#appointmentTime').text(`${doctorInfo[1]}-${doctorInfo[2]}`);
-
+       let doctorContact = $('#doctorContact').val();
+       let doctorEmail =doctorContact.split(':')[1].split('|')[0];   
        doctor ={
          id:doctorInfo[3],
+         name:doctorInfo[0],
+         email:doctorEmail,
          startTime:doctorInfo[1],
          endTime:doctorInfo[2]
        }
        
    }
-
    $('#confirmBooking').on('click',function(){
-    
     patient ={
       name:$('#patientName').val(),
       email:$('#patientEmail').val(),
       birthday:$('#patientBirthday').val(),
       gender:$('#patientGender').val(),
      }
-    
     let dataToSend = {
       patient:patient,
       doctor:doctor
     };
-
     fetch(`/patient/bookAppointment`, {
        method: 'POST', // or 'PUT'
        headers: {
@@ -150,7 +156,7 @@ function searchDoctors() {
        .then(response => response.json())
        .then(data => {
          if(data.success){
-           $('#exampleModal').modal('hide'); 
+           location.reload();
            alert('Your appointment was successfully!!')
          }
        })
@@ -166,7 +172,7 @@ function searchDoctors() {
     */
   
    getAppointments =()=>{
-    
+    $('#appointments').empty();
     fetch(`/patient/patientAppointments`, {
       method: 'GET', // or 'PUT'
       headers: {
@@ -177,29 +183,33 @@ function searchDoctors() {
       .then(data => {
         let result = data;
         let template;
-        console.log(result);
-        for (let index = 0; index < result.length; index++) {
-          const element = result[index];
-          template = `<tr>
-          <th scope="row">${index}</th>
-          <td>${index}</td>
-          <td>${element.doctor_id}</td>
-          <td>@mdo</td>
-          <td>${element.patient_id}</td>
-          <td><button value=${element._id}  onclick="cancelAppointmentById(this)">Cancle</button></td>
-        </tr>`;
-          $('#appointments').append(template);
+        if(result.length >0){
+          for (let index = 0; index < result.length; index++) {
+            const element = result[index];
+            template = `<tr>
+            <th scope="row">${index}</th>
+            <td>${element.startTime} - ${element.endTime}</td>
+            <td>${element.doctor.name}</td>
+            <td>${element.doctor.email}</td>
+            <td>${element.patient.name}</td>
+            <td>${element.patient.email}</td>
+            <td><button value=${element._id}  onclick="cancelAppointmentById(this)">Cancel</button></td>
+          </tr>`;
+            $('#appointments').append(template);
+          }
+        }else{
+          $('#appointments').append(`<tr><td colspan="7" class="text-center">no appointments</td></tr>`);
         }
-        
-        console.log(data);
       })
       .catch((error) => {
       console.error('Error:', error);
       });
    }
-
-   getAppointments();
-
+   /**
+    *  cancel appointment by Id
+    *  author qiaoli wang
+    *  wangqiao@deakin.edu.au
+    */
    cancelAppointmentById=(e)=>{
      //console.log(e.value);
      if (confirm('Are you sure you want to cancel this appointment?')) {
