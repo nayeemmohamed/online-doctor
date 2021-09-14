@@ -15,7 +15,7 @@ var app = express();
 
 
 
-require('./config/passport')(passport);
+require('./config/passport').UserAuthentication(passport);
 
 //db config 
 const db = require('./config/keys').MongoURI;
@@ -26,7 +26,8 @@ mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('DB Connected...'))
   .catch(err => console.log(err));
 
-
+// set static files
+app.use(express.static(__dirname + '/public'));
 
 // register view engine
 app.use(expressLayouts);
@@ -78,6 +79,7 @@ app.use((req,res,next) => {
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 app.use('/doctor',require('./routes/doctor'));
+app.use('/patient',require('./routes/patient'));
 
 
 

@@ -32,6 +32,11 @@ const DoctorSchema = new mongoose.Schema({
     endTime:{
         type: Date,
         required: true 
+    },
+    available:{
+        type:Boolean,
+        default:true,
+        required: true
     }
 });
 
