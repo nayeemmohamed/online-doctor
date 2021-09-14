@@ -42,7 +42,7 @@ searchDoctors =()=> {
       setTimeout(function(){
 
             if(out==''){
-              alert("No Any Doctor Avalible For The Selected Time OR The Selected Speciality!"+`\n`+"Please Try With Other Options");
+              //alert("No Any Doctor Avalible For The Selected Time OR The Selected Speciality!"+`\n`+"Please Try With Other Options");
               document.getElementById('loadingDiv').style.display='none';
             }
             else{
