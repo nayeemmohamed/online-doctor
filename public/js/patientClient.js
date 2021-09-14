@@ -9,7 +9,7 @@ $(document).ready(function(){
  *  author Nayeem
  *  modify by qiaoli
  */
-searchDoctors =()=> {
+searchDoctors =(isNeedSort = false)=> {
     var selectFrom = document.getElementById('appointFrom');
     var selectTo = document.getElementById('appointTo');
     var valueFrom = selectFrom.options[selectFrom.selectedIndex].value;
@@ -20,7 +20,7 @@ searchDoctors =()=> {
     var nameList = [];
     var doctors = [];
     $('#doctorList').empty();
-    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {   
+    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "/"+isNeedSort).then(res => res.json()).then((out) => {   
       nameList = [];
       nameList.innerHTML = "";
       doctors = []; docList.innerHTML = "";
@@ -45,6 +45,7 @@ searchDoctors =()=> {
             <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
             <p id="specPara">
               <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
+              <p class="fs-14"><b>Rating</b> : ${doctors[i].rating}</p>
               </p>
               <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
               value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"

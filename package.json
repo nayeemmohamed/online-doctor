@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "debug": "node --inspect=0.0.0.0:9229 app.js",
     "test": "mocha --reporter spec --timeout 10000"
   },
   "author": "",

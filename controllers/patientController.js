@@ -49,7 +49,9 @@ const bookAppointment = (req, res) => {
                 .then((result) => {
                     let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
                     const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
-                    const update = { available: false };
+                    // add one for rating value
+                    // author mike wang
+                    const update = { available: false , $inc: { rating: 1} };
 
                     let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
 
@@ -84,7 +86,9 @@ const cancelPatientAppointment = (req, res) => {
         .then((result) => {
             let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
             const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
-            const update = { available: true };
+            // reduce one for rating value
+            // author mike wang
+            const update = { available: true, $inc: { rating: -1} };
 
             let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
 

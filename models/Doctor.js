@@ -37,6 +37,10 @@ const DoctorSchema = new mongoose.Schema({
         type:Boolean,
         default:true,
         required: true
+    },
+    rating:{
+        type: Number,
+        default:0
     }
 });
 

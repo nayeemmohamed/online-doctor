@@ -131,7 +131,10 @@ const add = (req,res) => {
             })
             .catch(err => console.log(err));
 }
-
+/**
+ * delete doctor all information
+ * author mike wang
+ */
 const deleteByID = (req,res) => {
   const id = req.params.id;
   Doctor.findByIdAndDelete(id).then((result) => {
@@ -140,6 +143,10 @@ const deleteByID = (req,res) => {
       console.log(err);
   });
 }
+/**
+ * update doctor information
+ * author mike wang
+ */
 const updateByID= (req,res) => {
   const id = req.params.id;
   Doctor.findByIdAndUpdate({ _id: id },
@@ -152,8 +159,7 @@ const updateByID= (req,res) => {
         password: req.body.password,
         startTime: req.body.startTime,
         endTime: req.body.endTime
-    },
-    {new:true}
+    }
   ).then((result) => {
       // res.render();
   }).catch((err) => {
@@ -175,30 +181,54 @@ const getByTime = (req,res) => {
     console.log(req.body);
     const reqStartTime  = convertTime12to24(req.params.startTime);
     const reqEndTime  = convertTime12to24(req.params.endTime);
+    // added the sort option
+    // author mike wang
+    const needSort = req.params.sort;
+
     console.log(reqStartTime,reqEndTime);
     var time1 = new Date('2021-08-15T'+reqStartTime+':00.000Z');
     var time2 = new Date('2021-08-15T'+reqEndTime+':00.000Z');
 //1$or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }];
 // $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }]
-    Doctor.find(
-        //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
-        {startTime: { $lt: time2 },endTime: { $gt: time1 }}
-        //{
-            //$or: [
-                //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
-                //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
-                //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
-                //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
-              //]
-        //}
-    )
-    .then((result)=>{
-        // res.render('dashboard',{doctors: result})
-        res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    if(needSort == "true")
+    {
+        // added the sort option
+        Doctor.find(
+            {startTime: { $lt: time2 },endTime: { $gt: time1 }}
+
+        )
+        .sort({ rating: -1 })
+        .then((result)=>{
+
+            res.send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+    }
+    else{
+        Doctor.find(
+            //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
+            {startTime: { $lt: time2 },endTime: { $gt: time1 }}
+            //{
+                //$or: [
+                    //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
+                    //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
+                    //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
+                    //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
+                  //]
+            //}
+        )
+        .then((result)=>{
+            // res.render('dashboard',{doctors: result})
+            res.send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    
 }
 
 
