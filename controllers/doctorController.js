@@ -26,6 +26,34 @@ const add = (req,res) => {
             .catch(err => console.log(err));
 }
 
+const deleteByID = (req,res) => {
+  const id = req.params.id;
+  Doctor.findByIdAndDelete(id).then((result) => {
+      // res.render();
+  }).catch((err) => {
+      console.log(err);
+  });
+}
+const updateByID= (req,res) => {
+  const id = req.params.id;
+  Doctor.findByIdAndUpdate({ _id: id },
+    {
+        name:  req.body.name,
+        speciality: req.body.speciality,
+        description: req.body.description,
+        phone: req.body.phone,
+        email: req.body.email,
+        password: req.body.password,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime
+    },
+    {new:true}
+  ).then((result) => {
+      // res.render();
+  }).catch((err) => {
+      console.log(err);
+  });
+}
 
 const getAll = (req,res) => {
     Doctor.find()
@@ -93,6 +121,8 @@ const bookAppointment = (req,res) => {
 
 module.exports = {
     add,
+    deleteByID,
+    updateByID,
     getAll,
     getByTime,
     bookAppointment
