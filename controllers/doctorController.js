@@ -75,7 +75,8 @@ const register = (req,res)=>{
           }else {
             startTime = new Date('2021-08-15T'+startTime+':00.000Z');
             endTime = new Date('2021-08-15T'+endTime+':00.000Z');
-              const newUser = new Doctor({
+            speciality = speciality.toLowerCase();  
+            const newUser = new Doctor({
                   name,
                   email,
                   password,
@@ -147,32 +148,76 @@ const getByTime = (req,res) => {
     console.log(req.body);
     const reqStartTime  = convertTime12to24(req.params.startTime);
     const reqEndTime  = convertTime12to24(req.params.endTime);
-    console.log(reqStartTime,reqEndTime);
+    const speciality1  = req.params.speciality.toLowerCase();
+    console.log(reqStartTime,reqEndTime,speciality1);
     var time1 = new Date('2021-08-15T'+reqStartTime+':00.000Z');
     var time2 = new Date('2021-08-15T'+reqEndTime+':00.000Z');
 //1$or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }];
 // $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }]
-    Doctor.find(
-        //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
-        {startTime: { $lt: time2 },endTime: { $gt: time1 }}
-        //{
-            //$or: [
-                //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
-                //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
-                //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
-                //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
-              //]
-        //}
-    )
-    .then((result)=>{
-        // res.render('dashboard',{doctors: result})
-        res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    
+        if(speciality1.toLowerCase() === 'all'){
+            Doctor.find(
+
+                {startTime: { $lt: time2 },endTime: { $gt: time1 }}
+        
+                //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
+                //{
+                    //$or: [
+                        //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
+                        //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
+                        //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
+                        //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
+                      //]
+                //}
+            )
+            .then((result)=>{
+                // res.render('dashboard',{doctors: result})
+                res.send(result);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }else{
+            Doctor.find(
+
+                {startTime: { $lt: time2 },endTime: { $gt: time1 } , speciality:speciality1}
+        
+                //{startTime: { $lte: time1 },endTime: { $gt: time1 }}
+                //{
+                    //$or: [
+                        //{startTime: { $lte: time1 },endTime: { $gt: time1 }}, 
+                        //{startTime: { $lt: time2 },endTime: { $gte: time2 }}
+                        //{startTime: { $gte: time1 }, startTime: { $lt: time2 }},
+                        //{endTime:   { $gt: time1 }, endTime:   { $lte: time2 }}
+                      //]
+                //}
+            )
+            .then((result)=>{
+                // res.render('dashboard',{doctors: result})
+                res.send(result);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        
 }
 
+
+const getSpecilities = (req,res) => {
+    
+    Doctor.find().distinct('speciality', function(error, specialities) {
+        res.send(specialities);
+    });
+
+    // var query = dbSchemas.SomeValue.find({}).select('speciality -_id');
+
+    // query.exec(function (err, someValue) {
+    //     if (err) return next(err);
+    //     res.send(someValue);
+    // });
+        
+}
 
 
 
@@ -202,5 +247,6 @@ module.exports = {
     add,
     getAll,
     getByTime,
-    bookAppointment
+    bookAppointment,
+    getSpecilities
 }

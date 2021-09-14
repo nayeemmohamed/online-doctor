@@ -20,7 +20,7 @@ searchDoctors =()=> {
     var nameList = [];
     var doctors = [];
     $('#doctorList').empty();
-    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "").then(res => res.json()).then((out) => {   
+    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "/all").then(res => res.json()).then((out) => {   
       nameList = [];
       nameList.innerHTML = "";
       doctors = []; docList.innerHTML = "";

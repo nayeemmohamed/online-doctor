@@ -21,8 +21,10 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
 
 router.get('/add',ensureAuthenticated,doctorController.add);
 router.get('/getAll',doctorController.getAll);
-router.get('/getByTime/:startTime/:endTime',doctorController.getByTime);
+router.get('/getByTime/:startTime/:endTime/:speciality',doctorController.getByTime);
+router.get('/getSpecilities',doctorController.getSpecilities);
 router.post('/bookAppointment',doctorController.bookAppointment);
+
 
 //Login Post Request
 router.post('/login',(req,res,next) =>{
