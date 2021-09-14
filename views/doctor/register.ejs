@@ -1,14 +1,20 @@
 <div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body shadow p-3 mb-5 bg-white rounded">
+  <div class="col-md-8 m-auto">
+    <div class="card card-body shadow p-3 mb-5 bg-white rounded" style="background-image: url(https://digitalsynopsis.com/wp-content/uploads/2017/03/beautiful-color-gradients-backgrounds-078-cochiti-lake.png);background-repeat: no-repeat;background-size: cover;">
       <h1 class="text-center mb-3" style="color: rgb(65, 78, 255);">
         <i class="fas fa-user-plus"></i> Register
       </h1>
       <%- include ("../partials/messages"); %>
       <form action="/doctor/register" method="POST">
+
+        <div class="row">
+        <div class="col-6">
+
+       
         <div class="form-group">
           <label for="name">Name</label>
           <input
+          tabindex="0"
             type="name"
             id="name"
             name="name"
@@ -17,6 +23,9 @@
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
         </div>
+      
+
+      
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -28,6 +37,13 @@
             value="<%= typeof email != 'undefined' ? email : '' %>"
           />
         </div>
+     
+
+
+      </div>
+
+
+      <div class="col-6">
         <div class="form-group">
           <label for="password">Password</label>
           <input
@@ -39,6 +55,7 @@
             value="<%= typeof password != 'undefined' ? password : '' %>"
           />
         </div>
+      
         <div class="form-group">
           <label for="password2">Confirm Password</label>
           <input
@@ -50,6 +67,12 @@
             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
           />
         </div>
+      </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-6">
 
         <div class="form-group">
           <label for="phone">Phone</label>
@@ -64,49 +87,133 @@
         </div>
 
         <div class="form-group">
-          <label for="Speciality">Speciality</label>
-          <input
-            type="text"
-            id="speciality"
-            name="speciality"
-            class="form-control"
-            placeholder="Please Enter your speciality"
-            value="<%= typeof speciality != 'undefined' ? speciality : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            class="form-control"
-            placeholder="Description"
-            value="<%= typeof description != 'undefined' ? description : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="starttime">Start Time</label>
-          <input
+          <label for="starttime"></label>
+          <!-- <input
             type="text"
             id="starttime"
             name="starttime"
             class="form-control"
             placeholder="09:00 AM"
             value="<%= typeof starttime != 'undefined' ? starttime : '' %>"
-          />
+          /> -->
+
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Start Time</div>
+            </div>
+            <select class="form-control" id="starttime" name="starttime">
+              <option value="09:00-AM">09:00-AM</option>
+              <option value="09:30-AM">09:30-AM</option>
+              <option value="10:00-AM">10:00-AM</option>
+              <option value="10:30-AM">10:30-AM</option>
+              <option value="11:00-AM">11:00-AM</option>
+              <option value="11:30-AM">11:30-AM</option>
+              <option value="12:00-PM">12:00-PM</option>
+              <option value="12:30-PM">12:30-PM</option>
+              <option value="01:00-PM">01:00-PM</option>
+              <option value="01:30-PM">01:30-PM</option>
+              <option value="02:00-PM">02:00-PM</option>
+              <option value="02:30-PM">02:30-PM</option>
+              <option value="03:00-PM">03:00-PM</option>
+              <option value="03:30-PM">03:30-PM</option>
+              <option value="04:00-PM">04:00-PM</option>
+              <option value="04:30-PM">04:30-PM</option>
+              <option value="05:00-PM">05:00-PM</option>
+              <option value="05:30-PM">05:30-PM</option>
+              <option value="06:00-PM">06:00-PM</option>
+              <option value="06:30-PM">06:30-PM</option>
+              <option value="07:00-PM">07:00-PM</option>
+              <option value="07:30-PM">07:30-PM</option>
+              <option value="08:00-PM">08:00-PM</option>
+              <option value="08:30-PM">08:30-PM</option>
+              </select>
+          </div>
+
+
         </div>
+</div>
+
+<div class="col-6">
+        
+        
+  <div class="form-group">
+    <label for="Speciality">Speciality</label>
+    <input
+      type="text"
+      id="speciality"
+      name="speciality"
+      class="form-control"
+      placeholder="Please Enter your speciality"
+      value="<%= typeof speciality != 'undefined' ? speciality : '' %>"
+    />
+  </div>
+
         <div class="form-group">
-          <label for="endtime">End Time</label>
-          <input
+         <label for="endtime"></label>
+          <!-- <input 
             type="text"
             id="endtime"
             name="endtime"
             class="form-control"
             placeholder="End Time"
             value="<%= typeof endtime != 'undefined' ? endtime : '' %>"
-          />
+          /> -->
+
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">End Time</div>
+            </div>
+            <select class="form-control"  id="endtime" name="endtime">
+              <option value="09:30-AM">09:30-AM</option>
+              <option value="10:00-AM">10:00-AM</option>
+              <option value="10:30-AM">10:30-AM</option>
+              <option value="11:00-AM">11:00-AM</option>
+              <option value="11:30-AM">11:30-AM</option>
+              <option value="12:00-PM">12:00-PM</option>
+              <option value="12:30-PM">12:30-PM</option>
+              <option value="01:00-PM">01:00-PM</option>
+              <option value="01:30-PM">01:30-PM</option>
+              <option value="02:00-PM">02:00-PM</option>
+              <option value="02:30-PM">02:30-PM</option>
+              <option value="03:00-PM">03:00-PM</option>
+              <option value="03:30-PM">03:30-PM</option>
+              <option value="04:00-PM">04:00-PM</option>
+        
+              <option value="04:30-PM">04:30-PM</option>
+              <option value="05:00-PM">05:00-PM</option>
+              <option value="05:30-PM">05:30-PM</option>
+              <option value="06:00-PM">06:00-PM</option>
+              <option value="06:30-PM">06:30-PM</option>
+              <option value="07:00-PM">07:00-PM</option>
+              <option value="07:30-PM">07:30-PM</option>
+              <option value="08:00-PM">08:00-PM</option>
+              <option value="08:30-PM">08:30-PM</option>
+              <option value="09:00-PM">09:00-PM</option>
+            </select>
+          </div>
+
+
+
         </div>
+</div>
+
+      </div>
+      
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          class="form-control"
+          placeholder="Description"
+          value="<%= typeof description != 'undefined' ? description : '' %>"
+        />
+      </div>
+
+
+        
         <button type="submit" class="btn btn-primary btn-block" style="background-color: rgb(93, 93, 247);outline: none;border: none;">
           Register
         </button>

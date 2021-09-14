@@ -4,58 +4,86 @@
  */
 $(document).ready(function(){
   getAppointments();
+  document.getElementById('loadingDiv').style.display='none';
+  var selectSpecialities=document.getElementById('speciality');
+  var specialities=[];
+  fetch("/doctor/getSpecilities").then(res => res.json()).then((out) => {
+    specialities=out;
+    for(var j=0;j<specialities.length;j++){
+      var opt=document.createElement('option');
+      opt.innerHTML=specialities[j];
+      opt.value=specialities[j];
+      selectSpecialities.appendChild(opt);
+    }
+  });
 })
 /**
  *  author Nayeem
  *  modify by qiaoli
  */
+
 searchDoctors =()=> {
     var selectFrom = document.getElementById('appointFrom');
     var selectTo = document.getElementById('appointTo');
+    var selectSpeciality=document.getElementById('speciality');
     var valueFrom = selectFrom.options[selectFrom.selectedIndex].value;
     var valueTo = selectTo.options[selectTo.selectedIndex].value;
+    var valueSpeciality=selectSpeciality.options[selectSpeciality.selectedIndex].value;
 
     var docList = document.getElementById("doctorList");
 
     var nameList = [];
     var doctors = [];
+
     $('#doctorList').empty();
-    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "/all").then(res => res.json()).then((out) => {   
-      nameList = [];
-      nameList.innerHTML = "";
-      doctors = []; docList.innerHTML = "";
-      console.log('OutPut: ', out);
-      doctors = out;
-      for (var i = 0; i < doctors.length; i++) {
-        date1 = new Date(doctors[i].startTime);
-        var startTime = new Date(date1).toLocaleTimeString('en',
-          { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
-        date2 = new Date(doctors[i].endTime);
-        var endTime = new Date(date2).toLocaleTimeString('en',
-          { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
+    fetch("/doctor/getByTime/" + valueFrom + "/" + valueTo + "/"+valueSpeciality).then(res => res.json()).then((out) => {   
+      document.getElementById('loadingDiv').style.display='block';
 
-        let template = `<div class="col-sm-3 mb-3"><div class="card border-0 shadow">
-          <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="card-img-top" alt="${doctors[i].name}">
-          <div class="card-body">
-            <h5 class="card-title">Dr.
-            </span><u>${doctors[i].name}</u></h5>
-            <div id="timePara">
-              <div class="fs-14">${doctors[i].available == false ? '<b style="color:red">Not Available</b>' : '<b style="color:green">Available</b>'} :${startTime}- ${endTime}</div>
-            </div>
-            <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
-            <p id="specPara">
-              <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
-              </p>
-              <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
-              value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
-              id="btnContact">Contact</button>
-              <button   ${doctors[i].available == false ? 'disabled' : ''} id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
-              onclick="makeApointment(this)">Book Now</button>
-          </div>
-        </div> </div>`
+      setTimeout(function(){
 
-        $('#doctorList').append(template);
-      }
+            if(out==''){
+              alert("No Any Doctor Avalible For The Selected Time OR The Selected Speciality!"+`\n`+"Please Try With Other Options");
+              document.getElementById('loadingDiv').style.display='none';
+            }
+            else{
+                document.getElementById('loadingDiv').style.display='none';
+            nameList = [];
+            nameList.innerHTML = "";
+            doctors = []; docList.innerHTML = "";
+            console.log('OutPut: ', out);
+            doctors = out;
+            for (var i = 0; i < doctors.length; i++) {
+              date1 = new Date(doctors[i].startTime);
+              var startTime = new Date(date1).toLocaleTimeString('en',
+                { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
+              date2 = new Date(doctors[i].endTime);
+              var endTime = new Date(date2).toLocaleTimeString('en',
+                { timeStyle: 'short', hour12: false, timeZone: 'UTC' });
+
+              let template = `<div class="col-sm-3 mb-3"><div class="card border-0 shadow">
+                <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="card-img-top" alt="${doctors[i].name}">
+                <div class="card-body">
+                  <h5 class="card-title">Dr.
+                  </span><u>${doctors[i].name}</u></h5>
+                  <div id="timePara">
+                    <div class="fs-14">${doctors[i].available == false ? '<b style="color:red">Not Available</b>' : '<b style="color:green">Available</b>'} :${startTime}- ${endTime}</div>
+                  </div>
+                  <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
+                  <p id="specPara">
+                    <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
+                    </p>
+                    <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                    value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
+                    id="btnContact">Contact</button>
+                    <button   ${doctors[i].available == false ? 'disabled' : ''} id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
+                    onclick="makeApointment(this)">Book Now</button>
+                </div>
+              </div> </div>`
+
+              $('#doctorList').append(template);
+            } 
+          }
+  },200);
     })
   }
 /**

@@ -165,11 +165,30 @@
             </select>
           </div>
         </div>
+
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Speciality</div>
+            </div>
+            <select class="form-control" id="speciality">
+              <option value="all">All</option>
+            </select>
+          </div>
+        </div>
+
+
         <div class="col-sm-2">
           <button class="btn btn-primary" onclick="searchDoctors()"
           >Search</button>
         </div>
       </div>
+      <div style="color: white;font-size: xx-large;" id="loadingDiv">
+      <div class="spinner-border text-light" role="status">
+        <span class="sr-only">Loading...</span>
+      </div> Loading...
+      </div>
+
       <div class="container">
         <div class="row mt-5" id="doctorList">
           

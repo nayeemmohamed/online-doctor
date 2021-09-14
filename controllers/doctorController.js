@@ -75,12 +75,12 @@ const register = (req,res)=>{
           }else {
             startTime = new Date('2021-08-15T'+startTime+':00.000Z');
             endTime = new Date('2021-08-15T'+endTime+':00.000Z');
-            speciality = speciality.toLowerCase();  
+            const speciality1 = speciality.toLowerCase();  
             const newUser = new Doctor({
                   name,
                   email,
                   password,
-                  speciality,
+                  speciality:speciality1,
                   description,
                   phone,
                   startTime,
