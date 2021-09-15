@@ -70,7 +70,7 @@ searchDoctors =(isNeedSort = false)=> {
                   </div>
                   <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
                   <p id="specPara">
-                    <p class="fs-14"><b>Speciality</b> : ${doctors[i].speciality}</p>
+                    <p class="fs-14 cap"><b>Speciality</b> : ${doctors[i].speciality}</p>
                     <p class="fs-14"><b>Rating</b> : ${doctors[i].rating}</p>
                     </p>
                     <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
