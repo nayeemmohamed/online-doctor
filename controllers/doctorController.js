@@ -149,23 +149,42 @@ const deleteByID = (req, res) => {
  * author mike wang
  */
 const updateByID = (req, res) => {
-    const id = req.params.id;
-    Doctor.findByIdAndUpdate({ _id: id },
-        {
-            name: req.body.name,
-            speciality: req.body.speciality,
-            description: req.body.description,
-            phone: req.body.phone,
-            email: req.body.email,
-            password: req.body.password,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime
+    const {
+        name,
+        email,
+        speciality,
+        description,
+        phone,
+        starttime,
+        endtime
+    } = req.body;
+    var user = req.user;
+      user.name = name;
+      user.email = email;
+      user.speciality = speciality;
+      user.description = description;
+      user.phone = phone;
+      // the date format is not correct.
+      //   user.starttime = starttime;
+      //   user.endtime = endtime;
+      user.save().then(
+        (result) => {
+            res.redirect('/doctor/dashboard');
+        })
+        .catch((err) => {
+            console.log(err);
         }
-    ).then((result) => {
-        // res.render();
-    }).catch((err) => {
-        console.log(err);
-    });
+      );
+
+}
+/**
+ * get a doctor information
+ * author mike wang
+ */
+const getInformationByID = (req, res) => {
+    
+      res.render('doctor/information',{user:req.user});
+
 }
 
 const getAll = (req, res) => {
@@ -278,6 +297,7 @@ module.exports = {
     add,
     deleteByID,
     updateByID,
+    getInformationByID,
     getAll,
     getByTime,
     bookAppointment,

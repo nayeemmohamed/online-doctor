@@ -1,0 +1,190 @@
+<div class="row mt-5">
+    <div class="col-md-8 m-auto">
+      <div class="card card-body shadow p-3 mb-5 bg-white rounded" style="background-image: url(https://digitalsynopsis.com/wp-content/uploads/2017/03/beautiful-color-gradients-backgrounds-078-cochiti-lake.png);background-repeat: no-repeat;background-size: cover;">
+        <h1 class="text-center mb-3" style="color: rgb(65, 78, 255);">
+          <i class="fas fa-user-plus"></i> Information
+        </h1>
+        <%- include ("../partials/messages"); %>
+        <form action="/doctor/information" method="POST">
+  
+          <div class="row">
+          <div class="col-8">
+  
+         
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+            tabindex="0"
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+              value="<%= user.name %>"
+            />
+          </div>
+        
+  
+        
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+              value="<%= user.email %>"
+            />
+          </div>
+       
+  
+  
+        </div>
+  
+
+  
+  
+        <div class="row">
+          <div class="col-6">
+  
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              class="form-control"
+              placeholder="+61 2 1234 5678"
+              value="<%= user.phone %>"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label for="starttime"></label>
+
+  
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Start Time</div>
+              </div>
+              <select class="form-control" id="starttime" name="starttime" >
+                <option value="09:00-AM" <% if(user.starttime == "09:00-AM") { %> Selected <% } %>>09:00-AM</option>
+                <option value="09:30-AM" <% if(user.starttime == "09:30-AM") { %> Selected <% } %>>09:30-AM</option>
+                <option value="10:00-AM" <% if(user.starttime == "10:00-AM") { %> Selected <% } %>>10:00-AM</option>
+                <option value="10:30-AM" <% if(user.starttime == "10:30-AM") { %> Selected <% } %>>10:30-AM</option>
+                <option value="11:00-AM" <% if(user.starttime == "11:00-AM") { %> Selected <% } %>>11:00-AM</option>
+                <option value="11:30-AM" <% if(user.starttime == "11:30-AM") { %> Selected <% } %>>11:30-AM</option>
+                <option value="12:00-PM" <% if(user.starttime == "12:00-PM") { %> Selected <% } %>>12:00-PM</option>
+                <option value="12:30-PM" <% if(user.starttime == "12:30-PM") { %> Selected <% } %>>12:30-PM</option>
+                <option value="01:00-PM" <% if(user.starttime == "01:00-PM") { %> Selected <% } %>>01:00-PM</option>
+                <option value="01:30-PM" <% if(user.starttime == "01:30-PM") { %> Selected <% } %>>01:30-PM</option>
+                <option value="02:00-PM" <% if(user.starttime == "02:00-PM") { %> Selected <% } %>>02:00-PM</option>
+                <option value="02:30-PM" <% if(user.starttime == "02:30-PM") { %> Selected <% } %>>02:30-PM</option>
+                <option value="03:00-PM" <% if(user.starttime == "03:00-PM") { %> Selected <% } %>>03:00-PM</option>
+                <option value="03:30-PM" <% if(user.starttime == "03:30-PM") { %> Selected <% } %>>03:30-PM</option>
+                <option value="04:00-PM" <% if(user.starttime == "04:00-PM") { %> Selected <% } %>>04:00-PM</option>
+                <option value="04:30-PM" <% if(user.starttime == "04:30-PM") { %> Selected <% } %>>04:30-PM</option>
+                <option value="05:00-PM" <% if(user.starttime == "05:00-PM") { %> Selected <% } %>>05:00-PM</option>
+                <option value="05:30-PM" <% if(user.starttime == "05:30-PM") { %> Selected <% } %>>05:30-PM</option>
+                <option value="06:00-PM" <% if(user.starttime == "06:00-PM") { %> Selected <% } %>>06:00-PM</option>
+                <option value="06:30-PM" <% if(user.starttime == "06:30-PM") { %> Selected <% } %>>06:30-PM</option>
+                <option value="07:00-PM" <% if(user.starttime == "07:00-PM") { %> Selected <% } %>>07:00-PM</option>
+                <option value="07:30-PM" <% if(user.starttime == "07:30-PM") { %> Selected <% } %>>07:30-PM</option>
+                <option value="08:00-PM" <% if(user.starttime == "08:00-PM") { %> Selected <% } %>>08:00-PM</option>
+                <option value="08:30-PM" <% if(user.starttime == "08:30-PM") { %> Selected <% } %>>08:30-PM</option>
+                </select>
+            </div>
+  
+  
+          </div>
+  </div>
+  
+  <div class="col-6">
+          
+          
+    <div class="form-group">
+      <label for="Speciality">Speciality</label>
+      <input
+        type="text"
+        id="speciality"
+        name="speciality"
+        class="form-control"
+        placeholder="Please Enter your speciality"
+        value="<%= user.speciality %>"
+      />
+    </div>
+  
+          <div class="form-group">
+           <label for="endtime"></label>
+            <!-- <input 
+              type="text"
+              id="endtime"
+              name="endtime"
+              class="form-control"
+              placeholder="End Time"
+              value="<%= typeof endtime != 'undefined' ? endtime : '' %>"
+            /> -->
+  
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">End Time</div>
+              </div>
+              <select class="form-control"  id="endtime" name="endtime">
+                <option value="09:30-AM" <% if(user.endtime == "09:30-AM") { %> Selected <% } %> >09:30-AM</option>
+                <option value="10:00-AM" <% if(user.endtime == "10:00-AM") { %> Selected <% } %> >10:00-AM</option>
+                <option value="10:30-AM" <% if(user.endtime == "10:30-AM") { %> Selected <% } %> >10:30-AM</option>
+                <option value="11:00-AM" <% if(user.endtime == "11:00-AM") { %> Selected <% } %> >11:00-AM</option>
+                <option value="11:30-AM" <% if(user.endtime == "11:30-AM") { %> Selected <% } %> >11:30-AM</option>
+                <option value="12:00-PM" <% if(user.endtime == "12:00-PM") { %> Selected <% } %> >12:00-PM</option>
+                <option value="12:30-PM" <% if(user.endtime == "12:30-PM") { %> Selected <% } %> >12:30-PM</option>
+                <option value="01:00-PM" <% if(user.endtime == "01:00-PM") { %> Selected <% } %> >01:00-PM</option>
+                <option value="01:30-PM" <% if(user.endtime == "01:30-PM") { %> Selected <% } %> >01:30-PM</option>
+                <option value="02:00-PM" <% if(user.endtime == "02:00-PM") { %> Selected <% } %> >02:00-PM</option>
+                <option value="02:30-PM" <% if(user.endtime == "02:30-PM") { %> Selected <% } %> >02:30-PM</option>
+                <option value="03:00-PM" <% if(user.endtime == "03:00-PM") { %> Selected <% } %> >03:00-PM</option>
+                <option value="03:30-PM" <% if(user.endtime == "03:30-PM") { %> Selected <% } %> >03:30-PM</option>
+                <option value="04:00-PM" <% if(user.endtime == "04:00-PM") { %> Selected <% } %> >04:00-PM</option>
+                <option value="04:30-PM" <% if(user.endtime == "04:30-PM") { %> Selected <% } %> >04:30-PM</option>
+                <option value="05:00-PM" <% if(user.endtime == "05:00-PM") { %> Selected <% } %> >05:00-PM</option>
+                <option value="05:30-PM" <% if(user.endtime == "05:30-PM") { %> Selected <% } %> >05:30-PM</option>
+                <option value="06:00-PM" <% if(user.endtime == "06:00-PM") { %> Selected <% } %> >06:00-PM</option>
+                <option value="06:30-PM" <% if(user.endtime == "06:30-PM") { %> Selected <% } %> >06:30-PM</option>
+                <option value="07:00-PM" <% if(user.endtime == "07:00-PM") { %> Selected <% } %> >07:00-PM</option>
+                <option value="07:30-PM" <% if(user.endtime == "07:30-PM") { %> Selected <% } %> >07:30-PM</option>
+                <option value="08:00-PM" <% if(user.endtime == "08:00-PM") { %> Selected <% } %> >08:00-PM</option>
+                <option value="08:30-PM" <% if(user.endtime == "08:30-PM") { %> Selected <% } %> >08:30-PM</option>
+                <option value="09:00-PM" <% if(user.endtime == "09:00-PM") { %> Selected <% } %> >09:00-PM</option>
+              </select>
+            </div>
+  
+  
+  
+          </div>
+  </div>
+  
+        </div>
+        
+  
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            class="form-control"
+            placeholder="Description"
+            value="<%= user.description %>"
+          />
+        </div>
+  
+  
+          
+          <button type="submit" class="btn btn-primary btn-block" style="background-color: rgb(93, 93, 247);outline: none;border: none;">
+            Update Information
+          </button>
+        </form>
+        <p class="lead mt-4"> <a href="/doctor/dashboard">Back</a></p>
+      </div>
+    </div>
+  </div>
