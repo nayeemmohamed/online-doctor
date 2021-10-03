@@ -8,7 +8,7 @@ router.get('/',(req,res) => res.render('welcome'));
 
 //Dashboard Page
 router.get('/dashboard', ensureAuthenticated, (req, res) =>
-  res.render('patientDashboard', {
+  res.render('patient/dashboard', {
     user: req.user
   })
 );

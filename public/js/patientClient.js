@@ -222,7 +222,10 @@ searchDoctors =(isNeedSort = false)=> {
             <td>${element.doctor.email}</td>
             <td>${element.patient.name}</td>
             <td>${element.patient.email}</td>
-            <td><button value=${element._id}  onclick="cancelAppointmentById(this)">Cancel</button></td>
+            <td>
+              <button style="background-color:green;color:white" value=${element._id} >View</button>
+              <button value=${element._id}  onclick="cancelAppointmentById(this)">Cancel</button>
+            </td>
           </tr>`;
             $('#appointments').append(template);
           }
