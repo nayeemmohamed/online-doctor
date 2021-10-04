@@ -12,6 +12,7 @@ const patientController = require('../controllers/patientController');
 router.post('/updateProfile',patientController.updateProfile);
 router.post('/bookAppointment',patientController.bookAppointment);
 router.get('/patientAppointments',patientController.getPatientAppointment);
+router.get('/appointment',patientController.getAppointmentById);
 router.post('/cancelPatientAppointment',patientController.cancelPatientAppointment);
 
 

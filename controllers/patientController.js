@@ -101,7 +101,23 @@ const cancelPatientAppointment = (req, res) => {
             console.log(err);
         });
 }
-
+/**
+ * get appointment by id
+ * @param {} req 
+ * @param {*} res 
+ */
+const getAppointmentById = (req, res) => {
+    Appointment.find({'_id': req.query.id})
+        .then((result) => {
+            res.render('patient/appointmentDetail', {
+                appointment: result
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+}
 
 
 const convertTime12to24 = (time12h) => {
@@ -130,5 +146,6 @@ module.exports = {
     updateProfile,
     bookAppointment,
     getPatientAppointment,
-    cancelPatientAppointment
+    cancelPatientAppointment,
+    getAppointmentById
 }

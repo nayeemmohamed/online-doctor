@@ -67,6 +67,9 @@ body{
 .mr-5{
     margin-right: 5px;
 }
+.mb-10{
+    margin-bottom: 10px;
+}
 .fa-address-card, .fa-calendar-check{
     font-size: 30px;
 }
@@ -123,4 +126,17 @@ body{
 }
 .cap{
     text-transform:capitalize;
+}
+/* appointment details */
+.page-title{
+    padding: 20px 0px;
+}
+.page-detail-card{
+    padding: 20px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow:  1px 3px 5px 0px #666;
+}
+.border-radius-6{
+    border-radius: 6px;
 }

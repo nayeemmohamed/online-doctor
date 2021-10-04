@@ -73,7 +73,7 @@ searchDoctors =(isNeedSort = false)=> {
                     <p class="fs-14 cap"><b>Speciality</b> : ${doctors[i].speciality}</p>
                     <p class="fs-14"><b>Rating</b> : ${doctors[i].rating}</p>
                     </p>
-                    <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                    <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#contactDetails"
                     value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
                     id="btnContact">Contact</button>
                     <button   ${doctors[i].available == false ? 'disabled' : ''} id="booking" type="button" class="btn btn-success" value="${doctors[i].name},${startTime},${endTime},${doctors[i]._id}"
@@ -149,7 +149,7 @@ searchDoctors =(isNeedSort = false)=> {
 
    makeApointment =(ele)=> {
 
-    $('#exampleModal').modal('show'); 
+    $('#newAppointment').modal('show'); 
        let doctorInfo = ele.value.toString().split(',');
        $('#appointmentDoctor').text(doctorInfo[0]);
        $('#appointmentTime').text(`${doctorInfo[1]}-${doctorInfo[2]}`);
@@ -223,7 +223,7 @@ searchDoctors =(isNeedSort = false)=> {
             <td>${element.patient.name}</td>
             <td>${element.patient.email}</td>
             <td>
-              <button style="background-color:green;color:white" value=${element._id} >View</button>
+              <button style="background-color:green;color:white" value=${element._id} onclick="getAppointmentById(this)">View</button>
               <button value=${element._id}  onclick="cancelAppointmentById(this)">Cancel</button>
             </td>
           </tr>`;
@@ -269,5 +269,10 @@ searchDoctors =(isNeedSort = false)=> {
     } else {
       alert('Your appointment was not cancel!!')
     }
+   }
+
+   getAppointmentById =(e)=>{
+    location.href=`/patient/appointment?id=${e.value}`;
+    console.log(e);
    }
    
