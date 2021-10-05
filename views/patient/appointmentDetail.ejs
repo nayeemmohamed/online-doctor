@@ -1,11 +1,17 @@
 <div class="container">
     <h2 class="page-title">Appointment</h2>
     <div class="page-detail-card">
-        <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="border-radius-6 mb-10" width="100" />
-        <div><%= appointment[0].doctor.name %></div>
-        <p><%= appointment[0].doctor.email %></p>
-        <p><%= appointment[0].startTime %> ~ <%= appointment[0].endTime %></p>
-        
+        <h4>Doctor details</h4>
+        <div class="display-flex-start">
+            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" class="border-radius-6 mb-10 mr-10" width="100" />
+            <div>
+                <div><b><%= appointment[0].doctor.name %></b></div>
+                <p><%= appointment[0].doctor.email %></p>
+                <p><b>Time :</b> <%= appointment[0].startTime %> ~ <%= appointment[0].endTime %></p>
+            </div>
+        </div>
+       
+        <h4>Patient details</h4>
         <p><%= appointment[0].patient.name %></p>
         <p><%= appointment[0].patient.email %></p>
         <p><%= appointment[0].patient.gender %></p>
