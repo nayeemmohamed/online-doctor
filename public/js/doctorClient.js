@@ -44,3 +44,41 @@ fetch(`/doctor/doctorAppointments`, {
     console.error('Error:', error);
     });
 }
+
+   /**
+    *  cancel appointment by Id
+    *  author mike wang
+    */
+    cancelAppointmentById=(e)=>{
+        if (confirm('Are you sure you want to cancel this appointment?')) {
+         let dataToSend = {
+           id:e.value
+         }
+         fetch(`/doctor/cancelDoctorAppointment`, {
+          method: 'POST', // or 'PUT'
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if(data.success){
+              alert('Your appointment was canceled!!')
+              location.reload();
+            }
+          })
+          .catch((error) => {
+          console.error('Error:', error);
+          });
+       } else {
+         alert('Your appointment was not cancel!!')
+       }
+      }
+   
+      getAppointmentById =(e)=>{
+       location.href=`/doctor/appointment?id=${e.value}`;
+       console.log(e);
+      }
+      

@@ -204,6 +204,44 @@ const getDoctorAppointment = (req, res) => {
         });
 }
 
+/**
+ * get appointment by id
+ * author mike wang
+ */
+ const getAppointmentById = (req, res) => {
+    console.log(req.query.id);
+    Appointment.find({'_id': req.query.id})
+        .then((result) => {
+            res.render('doctor/appointmentDetail', {
+                appointment: result
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+}
+const cancelDoctorAppointment = (req, res) => {
+    
+    Appointment.findByIdAndRemove(req.body.id)
+        .then((result) => {
+            let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
+            const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
+
+            const update = { available: true, $inc: { rating: -1} };
+
+            let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
+
+            doctor.then(() => {
+                res.send({ success: true, message: 'ok' });
+            })
+                .catch(err => console.log(err));
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 const getAll = (req, res) => {
     Doctor.find()
         .then((result) => {
@@ -319,5 +357,7 @@ module.exports = {
     getByTime,
     bookAppointment,
     getDoctorAppointment,
+    getAppointmentById,
+    cancelDoctorAppointment,
     getSpecilities
 }

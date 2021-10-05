@@ -14,6 +14,9 @@ router.get('/information', ensureAuthenticated, doctorController.getInformationB
 router.post('/information', ensureAuthenticated, doctorController.updateByID);
 router.get('/doctorAppointments',ensureAuthenticated,doctorController.getDoctorAppointment);
 
+router.get('/appointment',ensureAuthenticated,doctorController.getAppointmentById);
+router.post('/cancelPatientAppointment',ensureAuthenticated,doctorController.cancelDoctorAppointment);
+
 //Doctor Dashboard Page
 router.get('/dashboard', ensureAuthenticated, (req, res) =>
   res.render('doctor/dashboard', {
