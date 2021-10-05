@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const Doctor = require('../models/Doctor');
 
 const Appointment = require('../models/Appointment');
+const Prescription = require('../models/prescription');
 
 //User model
 //const User =  require('../models/Doctor');
@@ -107,8 +108,18 @@ const register = (req, res) => {
     }
 
 }
-
-
+const addOrUpdatePrescription = (req, res) => {
+    const appointmentIdFilter = { appointmentId: req.body.appointmentId};
+    const update = { medicine: req.body.medicine};
+    let prescription = Prescription.findOneAndUpdate(appointmentIdFilter, update, {
+        new: true,
+        upsert: true
+    });
+    prescription.then((result) => {
+        res.send({ success: true, message: 'Prescription updated Successfully' });
+    })
+    .catch(err => console.log(err)); 
+}
 
 const add = (req, res) => {
     //var date1 = new Date('August 15, 2021 09:30:00');
@@ -407,5 +418,6 @@ module.exports = {
     cancelDoctorAppointment,
     confirmAppointmentById,
     doneAppointmentById,
-    getSpecilities
+    getSpecilities,
+    addOrUpdatePrescription
 }

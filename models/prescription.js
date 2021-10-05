@@ -7,10 +7,12 @@
  
  const PrescriptionSchema = new mongoose.Schema({
 
-     appointment: {type:Object},
+     appointmentId: {
+         type:String,
+         required: true
+        },
      medicine:{
-         type: String,
-         required: true 
+         type: String
      }
  });
  

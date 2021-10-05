@@ -15,6 +15,7 @@ router.post('/information', ensureAuthenticated, doctorController.updateByID);
 router.get('/doctorAppointments',ensureAuthenticated,doctorController.getDoctorAppointment);
 
 router.get('/appointment',ensureAuthenticated,doctorController.getAppointmentById);
+router.post('/addOrUpdatePrescription',doctorController.addOrUpdatePrescription);
 router.post('/cancelDoctorAppointment',ensureAuthenticated,doctorController.cancelDoctorAppointment);
 
 router.get('/confirmAppointment',ensureAuthenticated,doctorController.confirmAppointmentById);
