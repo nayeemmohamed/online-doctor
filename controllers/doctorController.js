@@ -193,15 +193,8 @@ const getInformationByID = (req, res) => {
  * author mike wang
  */
 const getDoctorAppointment = (req, res) => {
-    console.log(req.user._id);
-    // Appointment.find()
-    // .then((result) => {
-    //     res.send(result);
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    // });
-    Appointment.find({'doctor':{"$elemMatch":{"_id":req.user._id}}})
+
+    Appointment.find({'doctor.id':req.user._id.toString()})
         .then((result) => {
             res.send(result);
         })

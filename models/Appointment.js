@@ -23,6 +23,11 @@ const AppointmentSchema = new mongoose.Schema({
     date:{
         type: Date,
         default: Date.now 
+    },
+    state:{
+        type:String,
+        required: true,
+        default:"request" //1:request,2:confirm,3:done,4:feedback
     }
 });
 
