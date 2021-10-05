@@ -12,7 +12,7 @@ router.get('/register', (req, res) => res.render('doctor/register'));
 router.post('/register', doctorController.register);
 router.get('/information', ensureAuthenticated, doctorController.getInformationByID);
 router.post('/information', ensureAuthenticated, doctorController.updateByID);
-
+router.get('/doctorAppointments',ensureAuthenticated,doctorController.getDoctorAppointment);
 
 //Doctor Dashboard Page
 router.get('/dashboard', ensureAuthenticated, (req, res) =>

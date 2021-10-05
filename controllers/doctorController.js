@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 //Doctor model
 const Doctor = require('../models/Doctor');
 
+const Appointment = require('../models/Appointment');
+
 //User model
 //const User =  require('../models/Doctor');
 //const Doctor =  require('../models/Doctor');
@@ -164,9 +166,9 @@ const updateByID = (req, res) => {
       user.speciality = speciality;
       user.description = description;
       user.phone = phone;
-      // the date format is not correct.
-      //   user.starttime = starttime;
-      //   user.endtime = endtime;
+
+        user.starttime = starttime;
+        user.endtime = endtime;
       user.save().then(
         (result) => {
             res.redirect('/doctor/dashboard');
@@ -185,6 +187,28 @@ const getInformationByID = (req, res) => {
     
       res.render('doctor/information',{user:req.user});
 
+}
+/**
+ * get a doctor appointment list
+ * author mike wang
+ */
+const getDoctorAppointment = (req, res) => {
+    console.log(req.user._id);
+    // Appointment.find()
+    // .then((result) => {
+    //     res.send(result);
+    // })
+    // .catch((err) => {
+    //     console.log(err);
+    // });
+    Appointment.find({'doctor':{"$elemMatch":{"_id":req.user._id}}})
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
 }
 
 const getAll = (req, res) => {
@@ -301,5 +325,6 @@ module.exports = {
     getAll,
     getByTime,
     bookAppointment,
+    getDoctorAppointment,
     getSpecilities
 }
