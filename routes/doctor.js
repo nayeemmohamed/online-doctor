@@ -15,7 +15,11 @@ router.post('/information', ensureAuthenticated, doctorController.updateByID);
 router.get('/doctorAppointments',ensureAuthenticated,doctorController.getDoctorAppointment);
 
 router.get('/appointment',ensureAuthenticated,doctorController.getAppointmentById);
-router.post('/cancelPatientAppointment',ensureAuthenticated,doctorController.cancelDoctorAppointment);
+router.post('/cancelDoctorAppointment',ensureAuthenticated,doctorController.cancelDoctorAppointment);
+
+router.get('/confirmAppointment',ensureAuthenticated,doctorController.confirmAppointmentById);
+router.get('/doneAppointment',ensureAuthenticated,doctorController.doneAppointmentById);
+
 
 //Doctor Dashboard Page
 router.get('/dashboard', ensureAuthenticated, (req, res) =>

@@ -29,8 +29,16 @@ fetch(`/doctor/doctorAppointments`, {
         <td>${element.doctor.email}</td>
         <td>${element.patient.name}</td>
         <td>${element.patient.email}</td>
-        <td>
-            <button style="background-color:green;color:white" value=${element._id} onclick="getAppointmentById(this)">View</button>
+        <td>${element.state}</td>
+        <td>`;
+        if(element.state == "request")
+        {
+            template += `<button style="background-color:green;color:white" value=${element._id} onclick="confirmAppointmentById(this)">Confirm</button>`;
+        }
+        else if(element.state == "confirmed"){
+            template += `<button style="background-color:green;color:white" value=${element._id} onclick="doneAppointmentById(this)">Done</button>`;
+        }
+        template +=`<button value=${element._id} onclick="getAppointmentById(this)">View</button>
             <button value=${element._id}  onclick="cancelAppointmentById(this)">Cancel</button>
         </td>
         </tr>`;
@@ -80,5 +88,25 @@ fetch(`/doctor/doctorAppointments`, {
       getAppointmentById =(e)=>{
        location.href=`/doctor/appointment?id=${e.value}`;
        console.log(e);
+      }
+      confirmAppointmentById =(e)=>{
+        var url=`/doctor/confirmAppointment?id=${e.value}`;
+        fetch(url, {
+            method: 'GET'
+        }).then(response => {
+            window.location.href = response.url;
+        }).catch(err => {
+            console.log(err);
+        });
+      }
+      doneAppointmentById =(e)=>{
+        var url=`/doctor/doneAppointment?id=${e.value}`;
+        fetch(url, {
+            method: 'GET'
+        }).then(response => {
+            window.location.href = response.url;
+        }).catch(err => {
+            console.log(err);
+        });
       }
       

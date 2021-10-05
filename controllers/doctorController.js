@@ -221,8 +221,13 @@ const getDoctorAppointment = (req, res) => {
             res.send(err);
         });
 }
+
+/**
+ * cancel appointment by id
+ * author mike wang
+ */
 const cancelDoctorAppointment = (req, res) => {
-    
+    console.log(req.body.id);
     Appointment.findByIdAndRemove(req.body.id)
         .then((result) => {
             let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
@@ -241,6 +246,47 @@ const cancelDoctorAppointment = (req, res) => {
             console.log(err);
         });
 }
+/**
+ * confirm appointment by id
+ * author mike wang
+ */
+ const confirmAppointmentById = (req, res) => {
+    console.log(req.query.id);
+    Appointment.findOne({'_id': req.query.id})
+        .then((result) => {
+            result.state = "confirmed";
+            result.save()
+            .then(
+            (result) => {
+                res.redirect('/doctor/dashboard');
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+}
+/**
+ * done appointment by id
+ * author mike wang
+ */
+ const doneAppointmentById = (req, res) => {
+    console.log(req.query.id);
+    Appointment.findOne({'_id': req.query.id})
+        .then((result) => {
+            result.state = "done";
+            result.save()
+            .then(
+            (result) => {
+                res.redirect('/doctor/dashboard');
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+}
+
 
 const getAll = (req, res) => {
     Doctor.find()
@@ -359,5 +405,7 @@ module.exports = {
     getDoctorAppointment,
     getAppointmentById,
     cancelDoctorAppointment,
+    confirmAppointmentById,
+    doneAppointmentById,
     getSpecilities
 }
