@@ -52,9 +52,6 @@ $(document).ready(function () {
       console.log(err);
     }
   });
-  // initialize reply modal
-  //$(".modal").modal();
-
   // search a review
   $(".search-btn").on("click", function () {
     try {
@@ -242,8 +239,7 @@ renderReviews = (data) => {
                         ${item.review}
                     </div>
                     <div class="review-operation">
-                        ${currentUserId === item.user[0]._id ? '' : `<span id="reply-${index}" class="text-gray" onclick="openReplyModal(${index})" data-user="${item.user[0].name}" data-id="${item._id}">Reply</span>`}
-                        ${currentUserId === item.user[0]._id ? `<span id="delete-${index}" class="text-gray ml-20" onclick="DeleteModal(${index})" data-user="${item.user[0].name}" data-id="${item._id}" data-review="${item.review}">Delete</span>` : ""}
+                        ${currentUserId === item.user[0]._id ? `<span id="delete-${index}" class="text-gray ml-20" onclick="DeleteModal(${index})" data-rating="${item.rating}" data-id="${item._id}" data-review="${item.review}">Delete</span>` : ""}
                     </div>
                     <div class="response-list response-${index}"></div>
                 </div>`;
@@ -354,3 +350,36 @@ showScorePercentage = (data) => {
     console.log(err);
   }
 };
+
+const DeleteModal =(index)=>{
+
+  let review = $(`#delete-${index}`).data('review');
+
+  if (confirm(`Are you sure you want to delete "${review}"?`)) {
+    let reviewId = $(`#delete-${index}`).data('id'),
+        doctorId=$(".rate-doctor").data('did'),
+        rating = $(`#delete-${index}`).data('rating');
+    let data = {reviewId:reviewId,doctorId:doctorId,rating:rating};
+    try {
+      fetch(`/review/deleteReview`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.success){
+            alert('Your review was deleted!!')
+            location.reload();
+          }
+        })
+        .catch((error) => {
+        console.log('Error:', error);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}

@@ -139,7 +139,7 @@
                     averageRate.doctor = item.doctor;
                     });
                     return res.status(200).send(averageRate);
-
+                    
                 } else if (rate.length === 0) {
                     return res.status(200).send({ doctor: doctorId, rating: "0.0" });
                 } else {
@@ -154,6 +154,21 @@
     }
   }
 
+   const deleteReview=(req, res, next)=>{
+    let { reviewId ,doctorId,rating} = req.body;
+    try {
+        Review.deleteOne({_id:reviewId}).then(()=>{
+            Rate.findOneAndDelete({doctor:doctorId,rating:rating}).then((rate)=>{
+                //console.log(rate);
+                res.send({success:true,message:'ok'}).status(200);
+            })
+        })
+    } catch (err) {
+      console.log("Error delete a review", err);
+      return next(err);
+    }
+ }
+
 
 
  module.exports = {
@@ -162,5 +177,6 @@
     getReview,
     getReviewsSearch,
     getAverageRate,
-    getAppointmentById
+    getAppointmentById,
+    deleteReview
 }
