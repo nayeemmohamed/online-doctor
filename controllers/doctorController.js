@@ -224,8 +224,17 @@ const getDoctorAppointment = (req, res) => {
     console.log(req.query.id);
     Appointment.find({'_id': req.query.id})
         .then((result) => {
-            res.render('doctor/appointmentDetail', {
-                appointment: result
+
+            Prescription.find({'appointmentId':req.query.id})
+            .then((presc)=>{
+                res.render('doctor/appointmentDetail', {
+                    appointment: result,
+                    prescription: presc
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send(err);
             });
         })
         .catch((err) => {
@@ -233,6 +242,7 @@ const getDoctorAppointment = (req, res) => {
             res.send(err);
         });
 }
+
 
 /**
  * cancel appointment by id
