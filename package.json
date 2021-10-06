@@ -24,6 +24,7 @@
     "mocha": "^9.1.0",
     "mongodb": "*",
     "mongoose": "^5.13.7",
+    "nodemailer": "^6.6.5",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "request": "^2.88.2"
