@@ -138,6 +138,14 @@
                     averageRate.rating = (totalRating / rate.length).toFixed(1).toString();
                     averageRate.doctor = item.doctor;
                     });
+                    // Save average rate to doctor property
+                    // Mike Wang
+                    Doctor.findById(doctorId).then((docfound)=>{
+                      docfound.rating = averageRate.rating;
+                      docfound.save();
+                    });
+
+
                     return res.status(200).send(averageRate);
 
                 } else if (rate.length === 0) {

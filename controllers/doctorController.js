@@ -255,7 +255,7 @@ const cancelDoctorAppointment = (req, res) => {
             let startTime = timeCover(result.doctor.startTime), endTime = timeCover(result.doctor.endTime);
             const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
 
-            const update = { available: true, $inc: { rating: -1} };
+            const update = { available: true };
 
             let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
 

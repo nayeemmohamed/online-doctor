@@ -71,8 +71,12 @@ searchDoctors =(isNeedSort = false)=> {
                   <p class="card-text fs-14"  id="descrip">${doctors[i].description}</p>
                   <p id="specPara">
                     <p class="fs-14 cap"><b>Speciality</b> : ${doctors[i].speciality}</p>
-                    <p class="fs-14"><b>Rating</b> : ${doctors[i].rating}</p>
-                    </p>
+                  </p>
+                  <div class="row">
+                    <p class="col"><b>Rating</b> :</p>
+                    <div class="col" id="averageScore${i}"></div>
+                    <p class="col">${doctors[i].rating}</p>
+                  </div>
                     <button id="doctorContact" class="btn btn-primary  mr-10" data-bs-toggle="modal" data-bs-target="#contactDetails"
                     value="Email : ${doctors[i].email} | Phone: ${doctors[i].phone}" onclick="onContact(this)"
                     id="btnContact">Contact</button>
@@ -81,7 +85,16 @@ searchDoctors =(isNeedSort = false)=> {
                 </div>
               </div> </div>`
 
+              
               $('#doctorList').append(template);
+              $("#averageScore"+i.toString()).rateYo({
+                ratedFill: "#FFC107",
+                normalFill: "#C4C4C4",
+                rating: doctors[i].rating,
+                starWidth: "15px",
+              });
+              $("#averageScore"+i.toString()).rateYo("option", "readOnly", true);
+
             } 
           }
   },200);

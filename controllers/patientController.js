@@ -54,7 +54,7 @@ const bookAppointment = (req, res) => {
                     const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
                     // add one for rating value
                     // author mike wang
-                    const update = { available: false , $inc: { rating: 1} };
+                    const update = { available: false };
 
                     let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
 
@@ -91,7 +91,7 @@ const cancelPatientAppointment = (req, res) => {
             const appointmentFilter = { _id: result.doctor.id, startTime: startTime, endTime: endTime };
             // reduce one for rating value
             // author mike wang
-            const update = { available: true, $inc: { rating: -1} };
+            const update = { available: true };
 
             let doctor = Doctor.findOneAndUpdate(appointmentFilter, update);
 
