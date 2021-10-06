@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 //Doctor model
 const Doctor = require('../models/Doctor');
+const mail = require('../controllers/mailController')
 
 const Appointment = require('../models/Appointment');
 
@@ -259,6 +260,7 @@ const cancelDoctorAppointment = (req, res) => {
             .then(
             (result) => {
                 res.redirect('/doctor/dashboard');
+                mail.sendMailToPatient(result.user_id,result);
             })
         })
         .catch((err) => {
@@ -279,6 +281,7 @@ const cancelDoctorAppointment = (req, res) => {
             .then(
             (result) => {
                 res.redirect('/doctor/dashboard');
+                mail.sendMailToPatient(result.user_id,result);
             })
         })
         .catch((err) => {
