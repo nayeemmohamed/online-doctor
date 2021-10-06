@@ -243,7 +243,6 @@ renderReviews = (data) => {
                     </div>
                     <div class="review-operation">
                         ${currentUserId === item.user[0]._id ? '' : `<span id="reply-${index}" class="text-gray" onclick="openReplyModal(${index})" data-user="${item.user[0].name}" data-id="${item._id}">Reply</span>`}
-                        ${currentUserId === item.user[0]._id ? `<span id="edit-${index}" class="text-gray" onclick="EditModal(${index})" data-user="${item.user[0].name}" data-id="${item._id}" data-review="${item.review}">Edit</span>` : ""}
                         ${currentUserId === item.user[0]._id ? `<span id="delete-${index}" class="text-gray ml-20" onclick="DeleteModal(${index})" data-user="${item.user[0].name}" data-id="${item._id}" data-review="${item.review}">Delete</span>` : ""}
                     </div>
                     <div class="response-list response-${index}"></div>

@@ -192,7 +192,7 @@ textarea:focus, input:focus{
     font-weight: bold;
   }
   .rate-review-view{
-    margin-top:50px;
+    margin-top:20px;
     border-radius: 6px;
     padding: 20px;
   }
@@ -333,6 +333,15 @@ textarea:focus, input:focus{
   }
   .bg-color-grey{
     background-color: rgba(255, 255, 255, 0.3);
+  }
+  .go-back{
+    display: block;
+    padding-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-transform: capitalize;
+    text-decoration: none;
   }
   /* overwrite style of rate library*/
   .jq-ry-container{
