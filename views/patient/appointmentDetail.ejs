@@ -15,6 +15,12 @@
         <p><%= appointment[0].patient.name %></p>
         <p><%= appointment[0].patient.email %></p>
         <p><%= appointment[0].patient.gender %></p>
+        <% if (prescription.length > 0 ) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <h4>Prescription details</h4>
+                    <p><%= prescription[0].medicine %></p>
+                </div>
+        <%} %>
     </div>
 </div>
 <link href="/style.css" rel="stylesheet">

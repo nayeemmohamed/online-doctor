@@ -7,6 +7,7 @@ const User = require('../models/User');
 const Doctor = require('../models/Doctor');
 const Appointment = require('../models/Appointment');
 const Patient = require('../models/Patient');
+const Prescription = require('../models/prescription');
 
 const updateProfile = (req, res) => {
 
@@ -19,6 +20,8 @@ const updateProfile = (req, res) => {
     })
         .catch(err => console.log(err));
 }
+
+
 
 const bookAppointment = (req, res) => {
     console.log(req.body);
@@ -109,9 +112,20 @@ const cancelPatientAppointment = (req, res) => {
 const getAppointmentById = (req, res) => {
     Appointment.find({'_id': req.query.id})
         .then((result) => {
-            res.render('patient/appointmentDetail', {
-                appointment: result
+
+            Prescription.find({'appointmentId':req.query.id})
+            .then((presc)=>{
+                console.log(presc);
+                res.render('patient/appointmentDetail', {
+                    appointment: result,
+                    prescription: presc
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.send(err);
             });
+            
         })
         .catch((err) => {
             console.log(err);
