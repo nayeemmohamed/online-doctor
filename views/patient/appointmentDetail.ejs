@@ -1,39 +1,30 @@
+<a class="go-back" href="javascript:history.back()"> < Back</a>
 <div class="container">
     <h2 class="page-title">Appointment</h2>
     <div class="page-detail-card row">
-        <div class="mb-10 col-sm-3">
-            <h4>Doctor details</h4>
-            <div class="card" style="width: 15rem;">
-                <img class="card-img-top" src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?size=338&ext=jpg" width="100">
-                <div class="card-body">
-                  <h6 class="card-title"><%= appointment[0].doctor.name %></h6>
-                  <div class="card-text"><b>Email :</b><small class="text-muted"><%= appointment[0].doctor.email %></small></div>
-                  <div class="card-text mb-10"><b>Duration :</b> <small class="text-muted"><%= appointment[0].startTime %> ~ <%= appointment[0].endTime %></small></div>
-                  <% if(appointment[0].state == "done"){%>
-                    <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
-                  <%} %>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <h4>Patient details</h4>
-            <div class="row">
-                <div class=" col-sm-4">
-                    <div class="card mb-10">
-                        <div class="card-body">
-                          <h6 class="card-title capitalize"> <%= appointment[0].patient.name %></h6>
-                          <div class="card-text"><b>Email :</b><small class="text-muted"> <%= appointment[0].patient.email %></small></div>
-                          <div class="card-text mb-10"><b>Gender :</b> <small class="text-muted"><%= appointment[0].patient.gender %></small></div>
+        <div class="mb-10 ">
+            <h4>Appoingment</h4>
+            <div class="mb-10"><b>Apoointment time: <%= appointment[0].startTime %> ~ <%= appointment[0].endTime %></b></div>
+            <div class="">
+                <h4>Patient details</h4>
+                <div class="row">
+                    <div>
+                        <div class="card mb-10">
+                            <div class="card-body">
+                              <h6 class="card-title capitalize"> <%= appointment[0].patient.name %></h6>
+                              <div class="card-text"><b>Email :</b><small class="text-muted"> <%= appointment[0].patient.email %></small></div>
+                              <div class="card-text mb-10"><b>Gender :</b> <small class="text-muted"><%= appointment[0].patient.gender %></small></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <h4>Doctor details</h4>
+            <h6 class="card-title">Doctor Name: <%= appointment[0].doctor.name %></h6>
+            <div class="card-text mb-10"><b>Email :</b><%= appointment[0].doctor.email %></div>
+            <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
         </div>
-       
-        <h4>Patient details</h4>
-        <p><%= appointment[0].patient.name %></p>
-        <p><%= appointment[0].patient.email %></p>
-        <p><%= appointment[0].patient.gender %></p>
+        
         <% if (prescription.length > 0 ) { %>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <h4>Prescription details</h4>
