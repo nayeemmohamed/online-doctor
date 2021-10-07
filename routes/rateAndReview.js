@@ -12,6 +12,7 @@
  router.post('/reviewsSearch',rateAndReviewController.getReviewsSearch);
  router.post('/addRate',rateAndReviewController.addRate);
  router.get('/averageRate',rateAndReviewController.getAverageRate);
+ router.post('/deleteReview',rateAndReviewController.deleteReview);
 
  
  module.exports = router;
