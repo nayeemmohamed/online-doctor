@@ -16,16 +16,165 @@
         <p><%= appointment[0].patient.email %></p>
         <p><%= appointment[0].patient.gender %></p>
 
+        <% if (appointment[0].state != "request") { %>
+
         <% if (prescription.length > 0 ) { %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <h4>Prescribe Medicine</h4>
-                <p><%= prescription[0].medicine %></p>
+            <div class="alert alert-success alert-dismissible fade show bg-white text-black shadow p-3 mb-5 rounded" style="font-family: Bahnschrift SemiBold;text-shadow: 0px 1px 3px rgb(177, 196, 209);" role="alert">
+                <h4 style="color: rgb(51, 133, 136);"><i class="fad fa-prescription" style="color: rgb(51, 133, 136);"></i> - Prescribe Medicine</h4><hr>
+                <textarea class="form-control" id="txtPresc" disabled><%= prescription[0].medicine %></textarea>
+                <input type="hidden" id="hideAppointID" value="<%= appointment[0]._id %>" />
+                <br>
+                <button class="btn btn-success" onclick="savePresc()" id="btnPrescSave" style="display: none;">Save</button>
+                <button class="btn btn-dark" onclick="updatePresc()" id="btnPrescUpdate">Update</button>
+                
+                <button class="btn btn-primary" onclick="disablePresc()" id="btnDisable" style="display: none;">Cancel</button>
+                
             </div>
         <%} else { %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <h4>No Prescription</h4>
+            <div class="alert alert-success alert-dismissible fade show bg-white text-black" style="font-family: Bahnschrift SemiBold;text-shadow: 0px 1px 3px rgb(177, 196, 209);" id="prescDiv" role="alert">
+                <h4 style="color: rgb(51, 133, 136);"><i class="fad fa-prescription" style="color: rgb(51, 133, 136);"></i> - Prescription</h4><hr>
+                <input type="hidden" id="hiddenAppointID" value="<%= appointment[0]._id %>" />
+                <label>Enter Prescription: </label>
+                <textarea class="form-control" id="txtNoPresc"></textarea><br>
+                <button class="btn btn-success" onclick="noPrescSave()" id="btnNoPresc">Save</button>
+                <button class="btn btn-primary" onclick="clearText()" id="btnClear">Cancel</button>
             </div>
         <% } %>
+
+        <%}%>
+
     </div>
 </div>
 <link href="/style.css" rel="stylesheet">
+
+<script>
+
+function updatePresc(){
+    document.getElementById("btnPrescSave").style.display='block';
+    document.getElementById("btnPrescUpdate").style.display='none';
+    document.getElementById("btnDisable").style.display='block';
+    document.getElementById("btnPrescSave").style.display='inline';
+    document.getElementById("btnDisable").style.display='inline';
+    document.getElementById("txtPresc").disabled=false;
+}
+
+function disablePresc(){
+    document.getElementById("btnPrescSave").style.display='none';
+    document.getElementById("btnPrescUpdate").style.display='block';
+    document.getElementById("btnDisable").style.display='none';
+    document.getElementById("btnPrescUpdate").style.display='inline';
+    document.getElementById("txtPresc").disabled=true;
+}
+
+function savePresc(){
+        
+        var txtPrescVal=document.getElementById('txtPresc').value;
+        var appointID=document.getElementById('hideAppointID').value;
+
+        if(txtPrescVal==""||appointID==""){
+            alert("Prescription box is empty. Unable to Save!")
+        }
+        else{
+            const data={
+                'appointmentId': ``+appointID+``,
+                'medicine': txtPrescVal,
+            };
+
+            fetch(`/doctor/addOrUpdatePrescription`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                Swal.fire({
+                title: 'Done!',
+                text: "Presciption Updated Successfully!",
+                icon: 'success',
+                showCancelButton: false,
+                allowOutsideClick:false,
+                confirmButtonColor: 'green',
+                confirmButtonText: 'Got It!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    document.getElementById("btnPrescSave").style.display='none';
+                    document.getElementById("btnPrescUpdate").style.display='block';
+                    document.getElementById("btnDisable").style.display='none';
+
+                    location.reload();
+                }
+                })
+
+
+                
+            })
+            .catch((error) => {
+                alert("Problem in updating Prescription. Please Try again!")
+                console.error('Error:', error);
+            });
+
+        }
+    
+}
+
+
+
+
+function clearText(){
+    document.getElementById('txtNoPresc').value="";
+}
+
+    function noPrescSave(){
+        
+        var txtNoPrescVal=document.getElementById('txtNoPresc').value;
+        var appointID=document.getElementById('hiddenAppointID').value;
+
+        if(txtNoPrescVal==""||appointID==""){
+            alert("Prescription box is empty. Unable to Save!")
+        }
+        else{
+            const data={
+                'appointmentId': ``+appointID+``,
+                'medicine': txtNoPrescVal,
+            };
+
+            fetch(`/doctor/addOrUpdatePrescription`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                Swal.fire({
+                title: 'Done!',
+                text: "Presciption Submitted Successfully!",
+                icon: 'success',
+                showCancelButton: false,
+                allowOutsideClick:false,
+                confirmButtonColor: 'green',
+                confirmButtonText: 'Got It!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("prescDiv").style.display='none';
+
+                    location.reload();
+                }
+                })
+
+            })
+            .catch((error) => {
+                alert("Problem in adding Prescription. Please Try again!")
+                console.error('Error:', error);
+            });
+
+        }
+    
+}
+
+</script>

@@ -22,15 +22,15 @@
             <h4>Doctor details</h4>
             <h6 class="card-title">Doctor Name: <%= appointment[0].doctor.name %></h6>
             <div class="card-text mb-10"><b>Email :</b><%= appointment[0].doctor.email %></div>
+            <% if (prescription.length > 0 ) { %>
+                <div class="alert alert-success alert-dismissible fade show bg-white text-black shadow p-3 mb-5 rounded" style="font-family: Bahnschrift SemiBold;text-shadow: 0px 1px 3px rgb(177, 196, 209);" role="alert">
+                    <h4 style="color: rgb(51, 133, 136);"><i class="fad fa-prescription" style="color: rgb(51, 133, 136);"></i> - Prescription details:</h4>
+                    <hr>
+                    <p style="font-size: medium;"><%= prescription[0].medicine %></p>
+                </div>
+            <%} %>
             <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
         </div>
-        
-        <% if (prescription.length > 0 ) { %>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <h4>Prescription details</h4>
-                    <p><%= prescription[0].medicine %></p>
-                </div>
-        <%} %>
     </div>
 </div>
 <link href="/style.css" rel="stylesheet">
