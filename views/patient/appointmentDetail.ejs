@@ -9,7 +9,9 @@
                   <h6 class="card-title"><%= appointment[0].doctor.name %></h6>
                   <div class="card-text"><b>Email :</b><small class="text-muted"><%= appointment[0].doctor.email %></small></div>
                   <div class="card-text mb-10"><b>Duration :</b> <small class="text-muted"><%= appointment[0].startTime %> ~ <%= appointment[0].endTime %></small></div>
-                  <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
+                  <% if(appointment[0].state == "done"){%>
+                    <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
+                  <%} %>
                 </div>
             </div>
         </div>
