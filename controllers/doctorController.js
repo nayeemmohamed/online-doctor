@@ -178,6 +178,7 @@ const updateByID = (req, res) => {
       user.speciality = speciality;
       user.description = description;
       user.phone = phone;
+      user.available = true;
 
         user.starttime = starttime;
         user.endtime = endtime;

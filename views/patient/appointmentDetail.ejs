@@ -29,7 +29,10 @@
                     <p style="font-size: medium;"><%= prescription[0].medicine %></p>
                 </div>
             <%} %>
-            <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
+
+            <% if(appointment[0].state == "done"){%>
+                    <a href="/review/getAppointment?id=<%= appointment[0]._id %>" class="btn btn-primary">Rate And Review</a>
+            <%} %>
         </div>
     </div>
 </div>
